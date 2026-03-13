@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/bookingPage.css";
 import Amenty from "./Amenty";
+import RecurrenceForm from "./RecurrenceForm";
 function BookingForm() {
   const [listAmenties, setList] = useState([
     "Video",
@@ -11,6 +12,7 @@ function BookingForm() {
     "Speaker Phone",
   ]);
   const [listChosen, setChosen] = useState([]);
+  const [recurrence, setRecurrence] = useState(false);
   function handelChosen(amenty) {
     setChosen((prev) => {
       if (prev.includes(amenty)) {
@@ -95,9 +97,24 @@ function BookingForm() {
             placeholder="Enter the purpose of the booking (Optional)"
           ></input>
         </div>
+        <div id="form">
+          <div class="form-check">
+            <input
+              class="form-check-input custom-check"
+              type="checkbox"
+              value=""
+              id="checkDefault"
+              onChange={(e) => setRecurrence(e.target.checked)}
+            />
+            <label id="titleRecurrence" class="form-check-label" for="checkRecurrence">
+              Make Recurring
+            </label>
+          </div>
+          {recurrence && <RecurrenceForm />}
+        </div>
         <div className="d-flex justify-content-end w-100">
           <button type="button" class="btn btn-outline-primary">
-            Cancel
+            Reset
           </button>
           <button type="button" class="btn btn-primary">
             Search

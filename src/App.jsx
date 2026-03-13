@@ -6,6 +6,7 @@ import {BrowserRouter,
 } from "react-router-dom";
 import Homepage from './pages/Homepage';
 import BookingPage from './pages/BookingPage';
+import DetailRoomPage from './pages/DetailRoomPage';
 import "./assets/styles/index.css"
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/room" element={<BookingPage/>} />
+        <Route path="/detail" element={<DetailRoomPage/>}/>
       </Routes>
     </BrowserRouter>
   );

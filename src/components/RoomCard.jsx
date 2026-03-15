@@ -5,7 +5,7 @@ import { LuVideo, LuMic, LuPresentation,LuProjector } from "react-icons/lu";
 import { MdSpeakerPhone, MdSettingsInputHdmi } from "react-icons/md";
 function RoomCard() {
   return (
-    <div className="card-room">
+    <div className="card">
       <img src={image} alt="Meeting Room" />
       <span id="roomName">Room Name</span>
       <span id="roomInfo">

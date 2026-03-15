@@ -146,7 +146,7 @@
   width: 100%;
   gap: 10px;
 }
-.card-room {
+.card {
   width: 32%;
   display: flex;
   flex-direction: column;
@@ -157,24 +157,24 @@
   padding: 20px;
   gap: 15px;
 }
-.card-room #roomName {
+.card #roomName {
   font-size: 20px;
   font-weight: bold;
   opacity: 0.8;
 }
-.card-room #roomInfo {
+.card #roomInfo {
   display: flex;
   font-size: 13px;
   font-weight: 500;
   justify-content: space-between;
   align-items: center;
 }
-.card-room #roomInfo span {
+.card #roomInfo span {
   font-size: 13px;
   font-weight: 500;
   opacity: 0.7;
 }
-.card-room #roomInfo .list-facility {
+.card #roomInfo .list-facility {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -182,11 +182,11 @@
   color: #0b5ed7;
   gap: 5px;
 }
-.card-room img {
+.card img {
   width: 100%;
   height: 120px;
   object-fit: cover;
 }
-.card-room button {
+.card button {
   font-size: 15px;
 }

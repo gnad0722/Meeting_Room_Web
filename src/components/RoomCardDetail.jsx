@@ -3,7 +3,7 @@ import image from "../assets/images/meetingroom.jpg";
 import { LuVideo, LuMic, LuPresentation, LuProjector } from "react-icons/lu";
 import { MdSpeakerPhone, MdSettingsInputHdmi } from "react-icons/md";
 import Calendar from "./Calendar";
-function RoomCardDetail() {
+function RoomCardDetail(props) {
   return (
     <div className="card-room">
       <img src={image} alt="Meeting Room" />
@@ -29,7 +29,7 @@ function RoomCardDetail() {
         </div>
       </span>
       <div className="d-flex w-100 justify-content-center mt-3">
-          <Calendar/>
+          <Calendar selectedDate={props.selectedDate} onSelect={props.onSelect}/>
       </div>
       
     </div>

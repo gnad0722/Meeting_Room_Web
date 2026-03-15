@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-function Calendar() {
+function Calendar(props) {
  const [viewDate, setViewDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(new Date());
+ const selectedDate=props.selectedDate;
 
   const daysOfWeek = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
   const month = viewDate.getMonth();
@@ -13,7 +13,8 @@ function Calendar() {
 
   const handleDateClick = (day, isCurrentMonth) => {
     if (isCurrentMonth) {
-      setSelectedDate(new Date(year, month, day));
+      const selected = new Date(year, month, day);
+      props.onSelect(selected);
     }
   };
 

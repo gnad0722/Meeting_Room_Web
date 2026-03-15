@@ -153,6 +153,9 @@
   gap: 15px;
 }
 .schedule-container #titleDate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: #0b5ed7;
   font-size: 20px;
   font-weight: 500;

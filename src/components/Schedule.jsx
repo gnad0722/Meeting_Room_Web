@@ -8,7 +8,6 @@ function Schedule(props) {
   return (
     <div className="schedule">
       <div className="border-schedule">
-        
       </div>
       {hours.map((hour, index) => {
         return (

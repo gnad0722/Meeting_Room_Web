@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../assets/styles/bookingPage.css";
 import Amenty from "./Amenty";
 import RecurrenceForm from "./RecurrenceForm";
+
 function BookingForm() {
   const [listAmenties, setList] = useState([
     "Video",
@@ -106,7 +107,11 @@ function BookingForm() {
               id="checkDefault"
               onChange={(e) => setRecurrence(e.target.checked)}
             />
-            <label id="titleRecurrence" class="form-check-label" for="checkRecurrence">
+            <label
+              id="titleRecurrence"
+              class="form-check-label"
+              for="checkRecurrence"
+            >
               Make Recurring
             </label>
           </div>
@@ -121,6 +126,7 @@ function BookingForm() {
           </button>
         </div>
       </div>
+    
     </div>
   );
 }

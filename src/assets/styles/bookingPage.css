@@ -190,3 +190,46 @@
 .card button {
   font-size: 15px;
 }
+.message-success{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  text-align: center;
+}
+.message-success #icon{
+  font-size: 50px;
+  color: #17AE86;
+}
+.message-success #titleMessage{
+  font-size: 20px;
+  font-weight: 500;
+}
+.message-success #message{
+   font-weight: bold;
+}
+
+.message-success button{
+  width: 70px;
+  font-size: 15px;
+}
+.request-popup{
+  position: fixed;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap:10px;
+  border-radius: 0.5rem;
+}
+.request-popup div{
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 0.5rem;
+}
+.request-popup div:hover{
+  background-color: #3b82f6;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import image from "../assets/images/meetingroom.jpg";
+import DeleteForm from "./DeleteForm";
 function RoomCardAdmin() {
   return (
     <div className="room-card">
@@ -33,9 +34,10 @@ function RoomCardAdmin() {
          <div id="index"></div>
         <div id="content" className="gap-4">
             <button type="button" class="btn btn-warning">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"  data-bs-target="#deleteForm">Delete</button>
         </div>
       </div>
+      <DeleteForm/>
     </div>
   );
 }

@@ -51,6 +51,8 @@
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.2 ease-in-out;
+  position: relative;
+  z-index: 9999;
 }
 .amenty-chosen {
   background-color: #0d6efd;
@@ -213,23 +215,4 @@
 .message-success button{
   width: 70px;
   font-size: 15px;
-}
-.request-popup{
-  position: fixed;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  width: 250px;
-  gap:10px;
-  border-radius: 0.5rem;
-}
-.request-popup div{
-  cursor: pointer;
-  padding: 10px;
-  width: 100%;
-  transition: background-color 0.2s ease-in-out;
-  border-radius: 0.5rem;
-}
-.request-popup div:hover{
-  background-color: #3b82f6;
 }

@@ -84,6 +84,7 @@
   height: auto;
   margin-top: 10px;
   padding: 20px;
+  gap: 10px;
 }
 .recurrence-form #title {
   position: absolute;

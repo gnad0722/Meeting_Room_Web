@@ -59,3 +59,18 @@
   height: 150px;
   object-fit: cover;
 }
+.delete-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+.delete-form #titleDelete{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+.delete-form label{
+  margin-bottom: 10px;
+  font-weight: 500;
+}

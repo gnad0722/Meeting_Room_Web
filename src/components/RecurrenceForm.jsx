@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../assets/styles/bookingPage.css";
 function RecurrenceForm() {
   const [recurrence, setRecurrence] = useState("Daily");
-  console.log(recurrence);
   return (
     <div className="recurrence-form">
       <span id="title">Recurrence Pattern</span>

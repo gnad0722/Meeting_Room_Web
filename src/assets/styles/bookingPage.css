@@ -51,6 +51,8 @@
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.2 ease-in-out;
+  position: relative;
+  z-index: 9999;
 }
 .amenty-chosen {
   background-color: #0d6efd;
@@ -188,5 +190,29 @@
   object-fit: cover;
 }
 .card button {
+  font-size: 15px;
+}
+.message-success{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  text-align: center;
+}
+.message-success #icon{
+  font-size: 50px;
+  color: #17AE86;
+}
+.message-success #titleMessage{
+  font-size: 20px;
+  font-weight: 500;
+}
+.message-success #message{
+   font-weight: bold;
+}
+
+.message-success button{
+  width: 70px;
   font-size: 15px;
 }

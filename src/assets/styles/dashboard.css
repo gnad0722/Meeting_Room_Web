@@ -1,0 +1,72 @@
+.flex-container {
+  display: flex;
+  margin: 0 20px;
+}
+.card {
+  background-color: lightgray;
+  border: 1px solid black;
+  flex: 1;
+  margin: 25px;
+  height: 100px;
+  margin-right: 20px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.domixi {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  background-color: orangered;
+  z-index: 2;
+  width: 13px;
+  height: 100px;
+}
+.card h2 {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+}
+
+.card p {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+}
+.card_icon p {
+  position: absolute;
+  top: 50%;
+  transform: translate(500%,-60%);
+  font-size: 45px;
+}
+.search-box {
+    display: flex;
+    margin: 0px 25px;
+    margin-bottom: 10px;
+    margin-left: 45px;
+}
+h3 {
+    flex:1;
+}
+form {
+    flex:0.7;
+    display: flex;
+}
+input {
+    flex:8;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+button {
+    flex:1;
+    margin-left: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+hr {
+    width: 94%;
+    margin: 0 auto;
+}
+
+.booking-table {
+    width: 100.5%;
+    margin-left: -5px;
+}

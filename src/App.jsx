@@ -9,6 +9,8 @@ import BookingPage from './pages/BookingPage';
 import DetailRoomPage from './pages/DetailRoomPage';
 import ManageRoom from './pages/ManageRoom';
 import AddRoomPage from './pages/AddRoomPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import "./assets/styles/index.css";
 // import "./assets/styles/dashboard.css";
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/detail" element={<DetailRoomPage/>}/>
         <Route path="/admin/room" element={<ManageRoom/>}/>
         <Route path="/add-room" element={<AddRoomPage/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/signup' element={<SignupPage/>}/>
       </Routes>
     </BrowserRouter>
   );

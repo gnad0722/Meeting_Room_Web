@@ -1,14 +1,22 @@
 import React from "react";
 import banner from "../assets/images/banner.jpg";
 import "../assets/styles/loginPage.css";
-function LoginPage() {
+function SignupPage() {
   return (
     <div className="login-page">
       <div className="login-container">
         <div className="login-form">
           <div className="login-title">
-            <span className="main">Welcome back!</span>
-            <span>Enter your Credentials to access your account</span>
+            <span className="main">Get Started Now</span>
+          </div>
+          <div className="login-input">
+            <span>Name</span>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="Enter your name"
+            />
           </div>
           <div className="login-input">
             <span>Email address</span>
@@ -20,13 +28,7 @@ function LoginPage() {
             />
           </div>
           <div className="login-input">
-            <span className="d-flex">
-              Password
-              <span className="ms-auto mt-auto forgot-pass">
-                {" "}
-                Forgot password
-              </span>
-            </span>
+            <span className="d-flex">Password</span>
             <input
               type="password"
               class="form-control"
@@ -47,17 +49,17 @@ function LoginPage() {
                 class="form-check-label"
                 for="checkRecurrence"
               >
-                Remember me for 30 days
+                I agree to the terms & policy
               </label>
             </div>
           </div>
           <div className="login-btn">
             <button type="button" class="btn btn-primary w-100">
-              Login
+              Sign up
             </button>
           </div>
           <span className="title-signup">
-            Don't have an account?<span> Sign up</span>
+            Have an account?<span> Sign in</span>
           </span>
         </div>
       </div>
@@ -67,4 +69,4 @@ function LoginPage() {
     </div>
   );
 }
-export default LoginPage;
+export default SignupPage;

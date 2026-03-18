@@ -24,7 +24,7 @@ function Header(props) {
             </a>
           </li>
           <li className="nav-item">
-            <a href="../pages/AddRoomPage.jsx" className="nav-link">
+            <a href="/add-room" className="nav-link">
               Meeting Rooms
             </a>
           </li>

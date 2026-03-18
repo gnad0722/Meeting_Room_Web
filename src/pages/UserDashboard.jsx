@@ -28,7 +28,7 @@ function UserDashboard() {
         </form>
       </div>
       <hr/>
-      <div className="booking-list">
+      <div>
         <BookingList />
       </div>
     </div>

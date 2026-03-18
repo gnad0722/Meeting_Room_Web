@@ -4,20 +4,23 @@ import {BrowserRouter,
   Route,
   Router
 } from "react-router-dom";
-import Homepage from './pages/Homepage';
+import UserHomepage from './pages/UserHomepage';
 import BookingPage from './pages/BookingPage';
 import DetailRoomPage from './pages/DetailRoomPage';
 import ManageRoom from './pages/ManageRoom';
-import "./assets/styles/index.css"
+import AddRoomPage from './pages/AddRoomPage';
+import "./assets/styles/index.css";
+// import "./assets/styles/dashboard.css";
 function App() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<UserHomepage />} />
         <Route path="/room" element={<BookingPage/>} />
         <Route path="/detail" element={<DetailRoomPage/>}/>
         <Route path="/admin/room" element={<ManageRoom/>}/>
+        <Route path="/add-room" element={<AddRoomPage/>}/>
       </Routes>
     </BrowserRouter>
   );

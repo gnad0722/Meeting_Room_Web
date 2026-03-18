@@ -2,7 +2,7 @@
   display: flex;
   margin: 0 20px;
 }
-.card {
+.dashboardcard {
   background-color: lightgray;
   border: 1px solid black;
   flex: 1;
@@ -22,13 +22,13 @@
   width: 13px;
   height: 100px;
 }
-.card h2 {
+.dashboardcard h2 {
   position: absolute;
   left: 10%;
   top: 10%;
 }
 
-.card p {
+.dashboardcard p {
   position: absolute;
   left: 10%;
   top: 50%;

@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/images/logoweb.png";
+import "../assets/styles/header.css";
 function Header(props) {
   return (
     <div className="container header">

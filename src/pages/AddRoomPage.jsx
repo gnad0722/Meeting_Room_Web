@@ -1,86 +1,60 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
+import "../assets/styles/addroompage.css";
+import Amenities from "../components/Amenities.jsx";
+
 function AddRoomPage(props) {
+  const navigate = useNavigate();
+
   return (
     <div className="add-room-page">
       <Header />
-      <h1>Meeting Rooms</h1>
-      <div className="container">
+      <h2>Meeting Rooms</h2>
+      <div className="container add-room-form">
         <form action="/add-room" method="POST" className="row g-3">
-          <div className="col-md-6">
-            <label for="inputEmail4" className="form-label">
-              Email
+          <div className="col-md-4">
+            <label for="inputName" className="form-label">
+              Name
             </label>
-            <input type="email" className="form-control" id="inputEmail4" />
-          </div>
-          <div className="col-md-6">
-            <label for="inputPassword4" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="inputPassword4"
-            />
-          </div>
-          <div className="col-12">
-            <label for="inputAddress" className="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="inputAddress"
-              placeholder="1234 Main St"
-            />
-          </div>
-          <div className="col-12">
-            <label for="inputAddress2" className="form-label">
-              Address 2
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="inputAddress2"
-              placeholder="Apartment, studio, or floor"
-            />
-          </div>
-          <div className="col-md-6">
-            <label for="inputCity" className="form-label">
-              City
-            </label>
-            <input type="text" className="form-control" id="inputCity" />
+            <input type="text" className="form-control" id="inputName" />
           </div>
           <div className="col-md-4">
-            <label for="inputState" className="form-label">
-              State
+            <label for="inputLocation" className="form-label">
+              Location
             </label>
-            <select id="inputState" className="form-select">
+            <select id="inputLocation" className="form-select">
               <option selected>Choose...</option>
               <option>...</option>
             </select>
           </div>
-          <div className="col-md-2">
-            <label for="inputZip" className="form-label">
-              Zip
+          <div className="col-md-4">
+            <label for="inputSeatCapacity" className="form-label">
+              Seat Capacity
             </label>
-            <input type="text" className="form-control" id="inputZip" />
+            <select id="inputSeatCapacity" className="form-select">
+              <option selected>Choose...</option>
+              <option>...</option>
+            </select>
           </div>
-          <div className="col-12">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="gridCheck"
-              />
-              <label className="form-check-label" for="gridCheck">
-                Check me out
-              </label>
-            </div>
+          <Amenities />
+          <div className="col-md-4">
+            <label for="formFile" class="form-label">
+              Upload file
+            </label>
+            <input class="form-control" type="file" id="formFile" />
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary">
-              Sign in
+              Add
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-outline-secondary ms-2"
+              onClick={() => navigate("/")}
+            >
+              Cancel
             </button>
           </div>
         </form>

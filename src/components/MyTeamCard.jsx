@@ -3,10 +3,10 @@ import { FaInstagram, FaLinkedin } from "react-icons/fa";
 function MyTeamCard(props) {
     return (
         <div className="team-card">
-            <img src="https://picsum.photos/400/300" alt="Team Member" className="team-photo" />
+            <img src="https://picsum.photos/400/300" alt="Team Member" className="team-photo" style={{display: props.show === false ? 'none' : 'flex'}} />
             <h3 className="team-name">{props.name}</h3>
             <p>{props.title}</p>
-            <div className="team-social">
+            <div className="team-social" style={{display: props.show === false ? 'none' : 'block'}}>
                 <a href="#" className="social-link">
                     <FaInstagram />
                 </a>

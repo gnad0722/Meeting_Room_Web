@@ -4,7 +4,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin: 20px 30px;
-    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 .team-card img {
     width: 200px;

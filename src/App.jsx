@@ -11,6 +11,7 @@ import ManageRoom from './pages/ManageRoom';
 import AddRoomPage from './pages/AddRoomPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import AboutUs from './pages/AboutUs';
 import "./assets/styles/index.css";
 // import "./assets/styles/dashboard.css";
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/add-room" element={<AddRoomPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignupPage/>}/>
+        <Route path='/about-us' element={<AboutUs/>}/>
       </Routes>
     </BrowserRouter>
   );

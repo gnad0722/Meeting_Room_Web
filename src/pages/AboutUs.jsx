@@ -67,13 +67,13 @@ function AboutUs() {
         <p>We'd love to hear from you!</p>
         <div className="row">
           <div className="col-md-4">
-            <MyTeamCard name={<FiMail />} title="info@company.com" />
+            <MyTeamCard name={<FiMail />} title="info@company.com" show={false} />
           </div>
           <div className="col-md-4">
-            <MyTeamCard name={<FiPhone />} title="(123) 456-7890" />
+            <MyTeamCard name={<FiPhone />} title="(123) 456-7890" show={false} />
           </div>
           <div className="col-md-4">
-            <MyTeamCard name={<FiMapPin />} title="HCMUT" />
+            <MyTeamCard name={<FiMapPin />} title="HCMUT" show={false} />
           </div>
         </div>
       </section>

@@ -1,44 +1,37 @@
 import React from "react";
 import logo from "../assets/images/logoweb.png";
+import { MdLogout } from "react-icons/md";
+import { FaUserCircle, FaBell } from "react-icons/fa";
+
 import "../assets/styles/header.css";
 function Header(props) {
+  const avatar = props.avatar || null;
   return (
-    <div className="container header">
-      <header className="d-flex flex-wrap justify-content-center py-3 border-bottom">
-        <a
-          href="/"
-          className="d-flex align-items-center me-auto text-decoration-none"
-        >
-          <img src={logo} alt="logo" width="40" height="32" className="me-2" />
-
-          <span className="fs-4">Room Meeting</span>
-        </a>
-        <ul className="nav nav-pills">
-          <li className="nav-item">
-            <a href="#" className="nav-link active" aria-current="page">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="nav-link">
-              Dashboard
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/add-room" className="nav-link">
-              Meeting Rooms
-            </a>
-          </li>
-        </ul>
-        <div className="col-md-3 text-end">
-          <button type="button" className="btn btn-outline-primary me-2">
-            Login
-          </button>
-          <button type="button" className="btn btn-primary">
-            Sign-up
-          </button>
+    <div className="header-container">
+      <div className="header-content">
+        <div className="header-logo">
+          <img src={logo} alt="Logo" />
+          <span>Roomify</span>
         </div>
-      </header>
+        <div className="header-feature">
+          <div className="pages">
+            <div className="page-item "> Dashboard </div>
+             <div className="page-item choosed"> Meeting Room </div>
+          </div>
+          <div className="notification">
+            <FaBell style={{ cursor: "pointer" }} />
+          </div>
+          <div className="profile">
+            {avatar ? (
+              <img className="avatar" src={avatar} />
+            ) : (
+              <FaUserCircle className="avatar" />
+            )}
+            <span>John Doe</span>
+            <MdLogout style={{ cursor: "pointer" }} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

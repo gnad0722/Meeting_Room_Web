@@ -1,7 +1,9 @@
 import React from "react";
 import banner from "../assets/images/banner.jpg";
 import "../assets/styles/loginPage.css";
+import { useNavigate } from "react-router-dom";
 function LoginPage() {
+  const navigate=useNavigate();
   return (
     <div className="login-page">
       <div className="login-container">
@@ -57,7 +59,7 @@ function LoginPage() {
             </button>
           </div>
           <span className="title-signup">
-            Don't have an account?<span> Sign up</span>
+            Don't have an account?<span onClick={()=>{navigate("/signup")}}> Sign up</span>
           </span>
         </div>
       </div>

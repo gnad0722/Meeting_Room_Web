@@ -1,6 +1,7 @@
 .booking-page {
   display: flex;
   flex-direction: column;
+  background-color: #F9F9F9;
 }
 .body-detail-page {
   display: flex;

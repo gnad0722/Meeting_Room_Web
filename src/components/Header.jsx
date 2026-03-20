@@ -2,10 +2,15 @@ import React from "react";
 import logo from "../assets/images/logoweb.png";
 import { MdLogout } from "react-icons/md";
 import { FaUserCircle, FaBell } from "react-icons/fa";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import "../assets/styles/header.css";
+import utils from "../utils/utils";
 function Header(props) {
   const avatar = props.avatar || null;
+  const location = useLocation();
+  const currPage = utils.getPageName(location.pathname);
+  const navigate = useNavigate();
+  const authed = false;
   return (
     <div className="header-container">
       <div className="header-content">
@@ -13,24 +18,69 @@ function Header(props) {
           <img src={logo} alt="Logo" />
           <span>Roomify</span>
         </div>
-        <div className="header-feature">
-          <div className="pages">
-            <div className="page-item "> Dashboard </div>
-             <div className="page-item choosed"> Meeting Room </div>
+        {authed ? (
+          <div className="header-feature">
+            <div className="pages">
+              <div
+                className={`page-item ${currPage === "Dashboard" ? "choosed" : ""}`}
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Dashboard
+              </div>
+              <div
+                className={`page-item ${currPage === "Meeting Room" ? "choosed" : ""}`}
+                onClick={() => {
+                  navigate("/room");
+                }}
+              >
+                Meeting Room
+              </div>
+            </div>
+            <div className="notification">
+              <FaBell style={{ cursor: "pointer" }} />
+            </div>
+            <div className="profile">
+              {avatar ? (
+                <img className="avatar" src={avatar} />
+              ) : (
+                <FaUserCircle className="avatar" />
+              )}
+              <span>John Doe</span>
+              <MdLogout style={{ cursor: "pointer" }} />
+            </div>
           </div>
-          <div className="notification">
-            <FaBell style={{ cursor: "pointer" }} />
+        ) : (
+          <div className="header-feature">
+            <div className="pages">
+              <div
+                className={`page-item ${currPage === "About us" ? "choosed" : ""}`}
+                onClick={() => {
+                  navigate("/about-us");
+                }}
+              >
+                About us
+              </div>
+              <div
+                className={`page-item`}
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </div>
+              <div
+                className={`page-item`}
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              >
+                Sign up
+              </div>
+            </div>
           </div>
-          <div className="profile">
-            {avatar ? (
-              <img className="avatar" src={avatar} />
-            ) : (
-              <FaUserCircle className="avatar" />
-            )}
-            <span>John Doe</span>
-            <MdLogout style={{ cursor: "pointer" }} />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

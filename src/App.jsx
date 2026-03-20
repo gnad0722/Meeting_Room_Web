@@ -12,6 +12,7 @@ import AddRoomPage from './pages/AddRoomPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import AboutUs from './pages/AboutUs';
+import HerosPage from './pages/HerosPage';
 import "./assets/styles/index.css";
 // import "./assets/styles/dashboard.css";
 function App() {
@@ -19,7 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UserHomepage />} />
+        <Route path="/home" element={<UserHomepage />} />
         <Route path="/room" element={<BookingPage/>} />
         <Route path="/detail" element={<DetailRoomPage/>}/>
         <Route path="/admin/room" element={<ManageRoom/>}/>
@@ -27,6 +28,7 @@ function App() {
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignupPage/>}/>
         <Route path='/about-us' element={<AboutUs/>}/>
+        <Route path='/' element={<HerosPage/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,6 +1,7 @@
 .manage-page {
   display: flex;
   flex-direction: column;
+  background-color: #F9F9F9;
 }
 .body-manage-page {
   display: flex;

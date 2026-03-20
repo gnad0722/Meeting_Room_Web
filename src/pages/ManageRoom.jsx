@@ -11,7 +11,6 @@ function ManageRoom() {
         <div className="d-flex w-100 justify-content-between align-items-center">
           <span id="title">Meeting Rooms</span>
           <button type="button" class="btn btn-primary">
-            {" "}
             + Add room
           </button>
         </div>

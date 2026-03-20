@@ -7,5 +7,16 @@ function formatDate(dateString) {
     year: "numeric",
   });
 }
+const getPageName = (pathname) => {
+  if (pathname === "/home") return "Dashboard";
+  if (pathname === "/about-us" ) return "About us"
+  if (
+    pathname === "/login" ||
+    pathname === "/signup"
+  ) {
+    return "";
+  }
 
-export default { formatDate };
+  return "Meeting Room";
+};
+export default { formatDate, getPageName };

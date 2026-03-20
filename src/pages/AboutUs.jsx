@@ -3,9 +3,11 @@ import logo from "../assets/images/logoweb.png";
 import "../assets/styles/aboutus.css";
 import MyTeamCard from "../components/MyTeamCard.jsx";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import Header from "../components/Header.jsx";
 function AboutUs() {
   return (
     <div className="about-us">
+      <Header/>
       <section className="px-4 py-5 my-5 text-center">
         <img
           className="d-block mx-auto mb-4"

@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import banner from "../assets/images/banner.jpg";
 import "../assets/styles/loginPage.css";
+import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 function LoginPage() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [userInfo, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [mess, setMess] = useState({
+    email: "",
+    password: "",
+    auth: "",
+  });
+  async function handleLogin(e) {
+    e.preventDefault();
+    const response = await authService.login(userInfo);
+    if (response.success) {
+      navigate("/home");
+    } else {
+      const errors = {};
+      response.listErr.forEach((err) => {
+        errors[err.path] = err.msg;
+      });
+      setMess(errors);
+    }
+  }
   return (
     <div className="login-page">
       <div className="login-container">
@@ -19,13 +42,17 @@ function LoginPage() {
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="name@example.com"
+              value={userInfo.email}
+              onChange={(e) => {
+                setUser({ ...userInfo, email: e.target.value });
+              }}
             />
+            <span id="error-msg">{mess.email}</span>
           </div>
           <div className="login-input">
             <span className="d-flex">
               Password
               <span className="ms-auto mt-auto forgot-pass">
-                {" "}
                 Forgot password
               </span>
             </span>
@@ -34,7 +61,13 @@ function LoginPage() {
               class="form-control"
               id="exampleFormControlInput1"
               placeholder="Enter your password"
+              value={userInfo.password}
+              onChange={(e) => {
+                setUser({ ...userInfo, password: e.target.value });
+              }}
             />
+            <span id="error-msg">{mess.password}</span>
+            <span id="error-msg">{mess.auth}</span>
           </div>
           <div className="d-flex flex-column w-100 justify-content-between mb-2">
             <div class="form-check">
@@ -54,12 +87,20 @@ function LoginPage() {
             </div>
           </div>
           <div className="login-btn">
-            <button type="button" class="btn btn-primary w-100">
+            <button type="button" class="btn btn-primary w-100" onClick={(e)=>{handleLogin(e)}}>
               Login
             </button>
           </div>
           <span className="title-signup">
-            Don't have an account?<span onClick={()=>{navigate("/signup")}}> Sign up</span>
+            Don't have an account?
+            <span
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+  
+              Sign up
+            </span>
           </span>
         </div>
       </div>

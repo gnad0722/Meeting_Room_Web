@@ -34,7 +34,7 @@ const signup = async (userInfo) => {
   }
   return response;
 };
-const login = async (userInfo) => {
+const login = async (userInfo, rememberMe) => {
   const email = userInfo.email;
   const password = userInfo.password;
   const response = {
@@ -43,7 +43,7 @@ const login = async (userInfo) => {
     data: null
   };
   try {
-    const data = await authApi.login(email, password);
+    const data = await authApi.login(email, password,rememberMe);
     response.data=data;
   } catch (Err) {
     response.success = false;

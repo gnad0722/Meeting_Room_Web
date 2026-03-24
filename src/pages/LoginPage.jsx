@@ -16,9 +16,10 @@ function LoginPage() {
     password: "",
     auth: "",
   });
+  const [rememberMe,setRemember]=useState(false);
   async function handleLogin(e) {
     e.preventDefault();
-    const response = await authService.login(userInfo);
+    const response = await authService.login(userInfo,rememberMe);
     if (response.success) {
       setUserinfo(response.data);
       navigate("/home");
@@ -77,7 +78,8 @@ function LoginPage() {
               <input
                 class="form-check-input custom-check"
                 type="checkbox"
-                value=""
+                checked={rememberMe}
+                onChange={(e)=>setRemember(e.target.checked)}
                 id="checkDefault"
               />
               <label

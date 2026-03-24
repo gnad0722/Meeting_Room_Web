@@ -11,10 +11,11 @@ const signup = async (username, email, password, phone, role) => {
   return response.data;
 };
 
-const login = async (email, password) => {
+const login = async (email, password,rememberMe) => {
   const response = await axiosClient.post("/auth/login", {
     email,
     password,
+    rememberMe
   });
   return response.data;
 };

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import banner from "../assets/images/banner.jpg";
 import "../assets/styles/loginPage.css";
 import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
+import { AuthContext } from "../context/AuthContext";
 function SignupPage() {
+  const {setUserinfo}=useContext(AuthContext)
   const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
   const [userInfo, setUser] = useState({
@@ -29,6 +31,7 @@ function SignupPage() {
     } else {
       const response = await authService.signup(userInfo);
       if (response.success) {
+        setUserinfo(response.data);
         navigate("/home");
       } else {
         const errors = {};

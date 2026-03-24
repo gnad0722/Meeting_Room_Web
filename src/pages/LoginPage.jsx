@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import banner from "../assets/images/banner.jpg";
 import "../assets/styles/loginPage.css";
 import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 function LoginPage() {
+  const {setUserinfo}=useContext(AuthContext)
   const navigate = useNavigate();
   const [userInfo, setUser] = useState({
     email: "",
@@ -18,6 +20,7 @@ function LoginPage() {
     e.preventDefault();
     const response = await authService.login(userInfo);
     if (response.success) {
+      setUserinfo(response.data);
       navigate("/home");
     } else {
       const errors = {};

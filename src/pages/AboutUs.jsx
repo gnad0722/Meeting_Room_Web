@@ -18,7 +18,7 @@ function AboutUs() {
         />
         <h1 className="display-5 fw-bold text-body-emphasis">About Us</h1>
         <div className="col-lg-6 mx-auto">
-          <p className="lead mb-4">Nguyễn Ngọc Hải Đăng - Bát Xa Lô Nê</p>
+          <p className="lead mb-4">Roomify - Book smart, Meet better</p>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <button type="button" className="btn btn-primary btn-lg px-4 gap-3">
               Meet our team
@@ -27,7 +27,7 @@ function AboutUs() {
               type="button"
               className="btn btn-outline-secondary btn-lg px-4"
             >
-              Get in touch
+              Join with us
             </button>
           </div>
         </div>
@@ -51,12 +51,12 @@ function AboutUs() {
         <p>The passionate individuals behind our success</p>
         <div className="row">
           <div className="col-md-4">
-            <MyTeamCard name="Nguyễn Ngọc Hải Đăng" title="Lead Developer" />
+            <MyTeamCard name="Nguyễn Ngọc Hải Đăng" title="Developer" />
           </div>
           <div className="col-md-4">
             <MyTeamCard
               name="Nguyễn Phạm Mạnh Dũng"
-              title="Bố của Lead Developer"
+              title="Developer"
             />
           </div>
           <div className="col-md-4">
@@ -69,7 +69,7 @@ function AboutUs() {
         <p>We'd love to hear from you!</p>
         <div className="row">
           <div className="col-md-4">
-            <MyTeamCard name={<FiMail />} title="info@company.com" show={false} />
+            <MyTeamCard name={<FiMail />} title="roomifyservice@gmail.com" show={false} />
           </div>
           <div className="col-md-4">
             <MyTeamCard name={<FiPhone />} title="(123) 456-7890" show={false} />

@@ -1,22 +1,29 @@
 import { axiosClient, API_BASE } from "./axiosClient.js";
 
-const signup = async (username, email, password, phone,role) => {
+const signup = async (username, email, password, phone, role) => {
   const response = await axiosClient.post("/auth/signup", {
     username,
     email,
     password,
     phone,
-    role
+    role,
   });
   return response.data;
 };
 
-const login =async (email,password)=>{
-  console.log(email,password);
-  const response= await axiosClient.post("/auth/login",{
+const login = async (email, password) => {
+  const response = await axiosClient.post("/auth/login", {
     email,
-    password
-  })
+    password,
+  });
+  return response.data;
+};
+const getProfile = async () => {
+  const response = await axiosClient.get("/auth/profile");
+  return response.data;
+};
+const logout= async ()=>{
+  const response= await axiosClient.post("/auth/logout");
   return response.data;
 }
-export default {signup, login};
+export default { signup, login, getProfile, logout };

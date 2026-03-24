@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import "../assets/styles/addroompage.css";
 import Amenities from "../components/Amenities.jsx";
-
+import { AuthContext } from "../context/AuthContext.js";
 function AddRoomPage(props) {
   const navigate = useNavigate();
-
+  const { user, loading } = useContext(AuthContext);
+  if (user === null) return <div>Loading....</div>
   return (
     <div className="add-room-page">
-      <Header />
+      <Header user={user} />
       <h2>Meeting Rooms</h2>
       <div className="container add-room-form">
         <form action="/add-room" method="POST" className="row g-3">

@@ -1,9 +1,12 @@
-import React from "react";
+import React,{useContext} from "react";
 import "../assets/styles/managePage.css";
 import Header from "../components/Header";
 import SearchForm from "../components/SearchForm";
 import RoomCardAdmin from "../components/RoomCardAdmin";
+import { AuthContext } from "../context/AuthContext";
 function ManageRoom() {
+  const {user,loading}=useContext(AuthContext);
+  if (user === null) return <div>Loading....</div>
   return (
     <div className="manage-page">
       <Header />

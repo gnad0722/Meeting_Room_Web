@@ -56,7 +56,7 @@ function LoginPage() {
           <div className="login-input">
             <span className="d-flex">
               Password
-              <span className="ms-auto mt-auto forgot-pass">
+              <span className="ms-auto mt-auto forgot-pass" onClick={()=>navigate("/verify")}>
                 Forgot password
               </span>
             </span>

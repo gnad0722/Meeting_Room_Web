@@ -9,11 +9,11 @@ const signup = async (userInfo) => {
   const response = {
     success: true,
     listErr: [],
-    data:null
+    data: null,
   };
   try {
     const data = await authApi.signup(username, email, password, phone, role);
-    response.data=data;
+    response.data = data;
   } catch (Err) {
     response.success = false;
     if (Err.response.status === 400) {
@@ -40,11 +40,11 @@ const login = async (userInfo, rememberMe) => {
   const response = {
     success: true,
     listErr: [],
-    data: null
+    data: null,
   };
   try {
-    const data = await authApi.login(email, password,rememberMe);
-    response.data=data;
+    const data = await authApi.login(email, password, rememberMe);
+    response.data = data;
   } catch (Err) {
     response.success = false;
     if (Err.response.status === 400) {
@@ -67,12 +67,69 @@ const login = async (userInfo, rememberMe) => {
   return response;
 };
 
-const logout =async ()=>{
-  try{
-    const data =await authApi.logout();
-  }
-  catch(Err){
+const logout = async () => {
+  try {
+    const data = await authApi.logout();
+  } catch (Err) {
     console.error(Err);
   }
-}
-export default { signup, login , logout };
+};
+const sendVerifyEmail = async (email) => {
+  const response = {
+    success: true,
+    listErr: [],
+  };
+  try {
+    await authApi.sendVerifyEmail(email);
+  } catch (Err) {
+    response.success = false;
+    if (Err.response.status === 401) {
+      const error = Err.response.data.errors;
+      console.log(Err.response);
+      response.listErr.push({
+        path: "email",
+        msg: "Email is invalid",
+      });
+    } else console.error(Err);
+  }
+
+  return response;
+};
+const getEmailByToken = async (rawToken) => {
+  const response = {
+    success: true,
+    email: "",
+  };
+  try {
+    const data = await authApi.getEmailByToken(rawToken);
+    response.email = data.email;
+  } catch (Err) {
+    response.success = false;
+    if (Err.response.status === 401) {
+      response.email = "";
+    } else console.error(Err);
+  }
+  return response;
+};
+const resetPassword = async (email, newPassword) => {
+  const response = {
+    success: true,
+    listErr: [],
+  };
+  try {
+    await authApi.resetPassword(email, newPassword);
+  } catch (Err) {
+    response.success = false;
+    if (Err.response.status === 400) {
+      const errors = Err.response.data.errors;
+      errors.forEach((err) => {
+        response.listErr.push({
+          path: err.path,
+          msg: err.msg,
+        });
+      });
+    } else console.error(Err);
+  }
+  return response;
+};
+export default { signup, login, logout, sendVerifyEmail, getEmailByToken,resetPassword };

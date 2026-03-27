@@ -6,6 +6,7 @@ import RoomCardAdmin from "../components/RoomCardAdmin";
 import { AuthContext } from "../context/AuthContext";
 function ManageRoom() {
   const {user,loading}=useContext(AuthContext);
+  console.log(user);
   if (user === null) return <div>Loading....</div>
   return (
     <div className="manage-page">

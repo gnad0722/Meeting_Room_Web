@@ -1,4 +1,4 @@
-import React from "react";
+import React, { re } from "react";
 import "../assets/styles/bookingPage.css";
 import image from "../assets/images/meetingroom.jpg";
 import { LuVideo, LuMic, LuPresentation, LuProjector } from "react-icons/lu";
@@ -6,8 +6,7 @@ import { MdSpeakerPhone, MdSettingsInputHdmi } from "react-icons/md";
 import MessageSuccess from "./MesageSuccess";
 import bookingService from "../services/booking.service";
 function RoomCard(props) {
-  const bookingData=props.bookingData;
-  
+  const bookingData = props.bookingData;
   return (
     <div className="card">
       <img src={image} alt="Meeting Room" />
@@ -22,7 +21,7 @@ function RoomCard(props) {
         Status: <span style={{ color: "green" }}>Available</span>
       </span>
       <span id="roomInfo">
-        Facilities:{" "}
+        Facilities:
         <div className="list-facility">
           <LuVideo />
           <LuMic />
@@ -36,18 +35,28 @@ function RoomCard(props) {
         <button type="button" class="btn btn-outline-primary">
           View Calender
         </button>
-        <button type="button" class="btn btn-primary"  data-bs-toggle="modal"  data-bs-target="#success">
-          Book
+        <button
+          type="button"
+          class="btn btn-primary"
+          
+          onClick={() =>
+            props.handleDataBooking({
+              ...props.bookingData,
+              room_id:  9,
+            })
+          }
+        >
+          Choose
         </button>
       </div>
       <MessageSuccess
         id="success"
         title="Message"
         message={{
-          name:" Bhagirathi Room",
-          date:"30 Nov 2021",
-          startTime:"11:00 AM",
-          endTime:"12:00 AM"
+          name: " Bhagirathi Room",
+          date: "30 Nov 2021",
+          startTime: "11:00 AM",
+          endTime: "12:00 AM",
         }}
       />
     </div>

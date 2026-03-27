@@ -2,7 +2,7 @@ import React from "react";
 import "../assets/styles/bookingPage.css";
 import SearchForm from "./SearchForm";
 import RoomCard from "./RoomCard";
-function ListRoom() {
+function ListRoom(props) {
   return (
     <div className="booking-list">
       <div className="d-flex w-100 justify-content-between">
@@ -10,10 +10,10 @@ function ListRoom() {
         <SearchForm />
       </div>
       <div className="container-card">
-        <RoomCard />
-        <RoomCard />
-        <RoomCard />
-        <RoomCard />
+        <RoomCard bookingData={props.bookingData} handleDataBooking={props.handleDataBooking}/>
+        <RoomCard bookingData={props.bookingData} handleDataBooking={props.handleDataBooking}/>
+        <RoomCard bookingData={props.bookingData} handleDataBooking={props.handleDataBooking}/>
+        <RoomCard bookingData={props.bookingData} handleDataBooking={props.handleDataBooking}/>
       </div>
     </div>
   );

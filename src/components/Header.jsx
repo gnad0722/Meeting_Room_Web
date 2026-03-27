@@ -44,7 +44,9 @@ function Header(props) {
               <div
                 className={`page-item ${currPage === "Meeting Room" ? "choosed" : ""}`}
                 onClick={() => {
-                  navigate("/room");
+                  if (user.role==="customer")navigate("/room");
+                  else navigate("/admin/room")
+                  
                 }}
               >
                 Meeting Room

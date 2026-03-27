@@ -4,7 +4,10 @@ import image from "../assets/images/meetingroom.jpg";
 import { LuVideo, LuMic, LuPresentation, LuProjector } from "react-icons/lu";
 import { MdSpeakerPhone, MdSettingsInputHdmi } from "react-icons/md";
 import MessageSuccess from "./MesageSuccess";
-function RoomCard() {
+import bookingService from "../services/booking.service";
+function RoomCard(props) {
+  const bookingData=props.bookingData;
+  
   return (
     <div className="card">
       <img src={image} alt="Meeting Room" />

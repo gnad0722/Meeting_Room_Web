@@ -7,7 +7,7 @@ function ScheduleItem(props) {
   return (
     <div
       onClick={(e)=>{props.onRequest(e,time)}}
-      className={"schedule-item" + (available ? "" : " not-available")}
+      className={"schedule-item" + (false ? "" : " not-available")}
       id={border}
     >
       {border == "full" && (time < 10 ? "0" + time + ":00" : time + ":00")}

@@ -55,7 +55,7 @@ function Schedule(props) {
         time={popup.startTime}
         onChose={setPopup}
       />
-     <BookingPopup />
+      <BookingPopup />
       <div className="border-schedule"></div>
       {hours.map((hour, index) => {
         return (

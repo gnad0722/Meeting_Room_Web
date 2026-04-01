@@ -1,116 +1,74 @@
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import {
   FaClock,
   FaFilter,
   FaRegCheckSquare,
   FaRegTimesCircle,
 } from "react-icons/fa";
+import utils from "../utils/utils";
+import StatusBooking from "./StatusBooking";
+import StatusPopup from "./StatusPopup";
 function BookingList(props) {
-  let bookingsList = [
-    {
-      id: 1,
-      roomName: "BHAGIRATHI",
-      startDate: "24/11/2021",
-      endDate: "24/11/2021",
-      startTime: "11:30 AM",
-      endTime: "12:30 AM",
-      bookingDateTime: "21/11/2021, 11:30 AM",
-      members: 3,
-      location: "UNIT-1 PNQ-HJ",
-      agenda: "Development Strategy",
-      actionApprove: <FaRegCheckSquare />,
-      actionDelete: <FaRegTimesCircle />,
-    },
-    {
-      id: 2,
-      roomName: "GHATAPRABHA",
-      startDate: "24/11/2021",
-      endDate: "24/11/2021",
-      startTime: "11:00 AM",
-      endTime: "11:30 AM",
-      bookingDateTime: "21/11/2021, 11:30 AM",
-      members: 4,
-      location: "UNIT-1 PNQ-HJ",
-      agenda: "Development Strategy",
-      actionApprove: <FaRegCheckSquare />,
-      actionDelete: <FaRegTimesCircle />,
-    },
-    {
-      id: 3,
-      roomName: "BHIMA",
-      startDate: "24/11/2021",
-      endDate: "24/11/2021",
-      startTime: "10:30 AM",
-      endTime: "11:00 AM",
-      bookingDateTime: "21/11/2021, 11:30 AM",
-      members: 5,
-      location: "UNIT-1 PNQ-HJ",
-      agenda: "Development Strategy",
-      actionApprove: <FaRegCheckSquare />,
-      actionDelete: <FaRegTimesCircle />,
-    },
-    {
-      id: 4,
-      roomName: "TUNGBHADRA",
-      startDate: "24/11/2021",
-      endDate: "24/11/2021",
-      startTime: "10:00 AM",
-      endTime: "09:30 AM",
-      bookingDateTime: "21/11/2021, 11:30 AM",
-      members: 6,
-      location: "UNIT-1B PNQ-HJ",
-      agenda: "Product Meeting",
-      actionApprove: <FaRegCheckSquare />,
-      actionDelete: <FaRegTimesCircle />,
-    },
-    {
-      id: 5,
-      roomName: "BRAMHAPUTRA",
-      startDate: "24/11/2021",
-      endDate: "24/11/2021",
-      startTime: "09:30 AM",
-      endTime: "09:00 AM",
-      bookingDateTime: "21/11/2021, 11:30 AM",
-      members: 3,
-      location: "UNIT-1B PNQ-HJ",
-      agenda: "Development Strategy",
-      actionApprove: <FaRegCheckSquare />,
-      actionDelete: <FaRegTimesCircle />,
-    },
-  ];
+  const { user } = useContext(AuthContext);
+  const bookingList = props.bookingList;
   return (
     <div className="container-fluid mt-4 px-5 booking-table">
       <table className="table table-hover">
         <thead>
           <tr>
             <th>Room Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>Booking Date & Time</th>
-            <th>Members</th>
+            <th>Book At</th>
             <th>Location</th>
             <th>Agenda</th>
-            <th>Action</th>
+            <th>{user.role === "admin" ? "Action" : "Status"}</th>
           </tr>
         </thead>
         <tbody>
-          {bookingsList.map((booking) => (
+          {bookingList.map((booking) => (
             <tr key={booking.id}>
-              <td>{booking.roomName}</td>
-              <td>{booking.startDate}</td>
-              <td>{booking.endDate}</td>
-              <td>{booking.startTime}</td>
-              <td>{booking.endTime}</td>
-              <td>{booking.bookingDateTime}</td>
-              <td>{booking.members}</td>
+              <td>{booking.room_name}</td>
+              <td>{booking.date}</td>
+              <td>{booking.start_time}</td>
+              <td>{booking.end_time}</td>
+              <td>{utils.formatDateTime(booking.book_at)}</td>
               <td>{booking.location}</td>
               <td>{booking.agenda}</td>
-              <td>
-                {booking.actionApprove}{" "}
-                {booking.actionDelete}
-              </td>
+              {user.role === "admin" ? (
+                <td>
+                  <StatusBooking id={booking.id} status={booking.status} role={"admin"} />
+                  <StatusPopup
+                    id={booking.id}
+                    message={{
+                      name: booking.room_name,
+                      date: booking.date,
+                      startTime: booking.start_time,
+                      endTime: booking.end_time,
+                    }}
+                    status={"confirm"}
+                    title={"Confirm This Booking"}
+                  />
+                   <StatusPopup
+                    id={booking.id}
+                    message={{
+                      name: booking.room_name,
+                      date: booking.date,
+                      startTime: booking.start_time,
+                      endTime: booking.end_time,
+                    }}
+                    status={"cancel"}
+                    title={"Cancel This Booking"}
+                  />
+                </td>
+              ) : (
+                <td>
+                  <StatusBooking status={booking.status} id={booking.id} role={"customer"}/>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

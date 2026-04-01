@@ -1,8 +1,15 @@
-import react,{ useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Amenities() {
-  const options = ["Audio", "Video", "White Board", "HDMI", "Projector", "Speaker Phone"];
-  const [selected, setSelected] = useState(["Audio"]);
+function Amenities({ onChange, selected: initialSelected = ["Audio"] }) {
+  const options = ["Audio", "Video", "White Board", "HDMI", "Projector", "Speaker Phone", "Wifi"];
+
+  const [selected, setSelected] = useState(initialSelected);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selected);
+    }
+  }, [selected]);
 
   const addItem = (item) => {
     if (!selected.includes(item)) {
@@ -16,8 +23,7 @@ function Amenities() {
 
   return (
     <div className="col-md-8">
-
-      <label for="inputAmenities" className="form-label">Amenities</label>
+      <label className="form-label">Amenities</label>
 
       <div className="form-control d-flex flex-wrap gap-2 p-2">
         {selected.map((item, index) => (
@@ -45,7 +51,6 @@ function Amenities() {
           </button>
         ))}
       </div>
-
     </div>
   );
 }

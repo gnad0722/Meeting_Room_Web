@@ -9,33 +9,47 @@ const getRoomById = async (roomId) => {
   const response = await axiosClient.get(`/room/${roomId}`);
   return response.data;
 };
-const getRoomsByAdId = async (adId) => {
-  const response = await axiosClient.get(`/room/admin/${adId}`);
+const getRoomsByAdId = async (adId,keyword ="") => {
+  const response = await axiosClient.get(`/room/admin/${adId}?keyword=${keyword}`);
   return response.data;
 }
 
-const addRoom = async (name,location,capacity, admin_id, amenities, images) => {
-  const roomData = {
-    name,
-    location,
-    capacity,
-    admin_id,
-    amenities,
-    images
-  };
-  const response = await axiosClient.post("/room", roomData);
+const addRoom = async (name,location,capacity, admin_id, amenities, image) => {
+   console.log("data:", { name, location, capacity, admin_id, amenities, image });
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("location", location);
+  formData.append("capacity", capacity);
+  formData.append("admin_id", admin_id);
+  formData.append("amenities", JSON.stringify(amenities));
+  formData.append("image", image);
+  const response = await axiosClient.post("/room", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };
 
-const updateRoom = async (roomId, name, location, capacity, amenities, images) => {
-  const roomData = {
-    name,
-    location,
-    capacity,
-    amenities,
-    images
-  };
-  const response = await axiosClient.put(`/room/${roomId}`, roomData);
+const updateRoom = async (roomId, name, location, capacity, amenities, formFile) => {
+  console.log("data:", { roomId, name, location, capacity, amenities, formFile });
+  
+  const formData = new FormData();
+  
+  formData.append("name", name);
+  formData.append("location", location);
+  formData.append("capacity", capacity);
+
+  formData.append("amenities", JSON.stringify(amenities));
+  formData.append("image", formFile);
+
+  
+  const response = await axiosClient.put(`/room/${roomId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
   return response.data;
 };
 

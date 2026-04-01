@@ -5,7 +5,7 @@ import BookingPopup from "./BookingPopup";
 function Schedule(props) {
   const componentRef = useRef(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const hours = Array.from({ length: 50 }, (_, i) => ({
+  const hours = Array.from({ length: 48 }, (_, i) => ({
     time: i * 0.5,
     available: true,
   }));

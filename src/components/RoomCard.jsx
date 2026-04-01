@@ -10,13 +10,13 @@ function RoomCard(props) {
   
   return (
     <div className="card">
-      <img src={image} alt="Meeting Room" />
-      <span id="roomName">Room Name</span>
+      <img src={props.image} alt="Meeting Room" />
+      <span id="roomName">{props.name}</span>
       <span id="roomInfo">
-        Seating Capacity: <span>8</span>
+        Seating Capacity: <span>{props.capacity}</span>
       </span>
       <span id="roomInfo">
-        Location: <span>Building A, Floor 2</span>
+        Location: <span>{props.location}</span>
       </span>
       <span id="roomInfo">
         Status: <span style={{ color: "green" }}>Available</span>

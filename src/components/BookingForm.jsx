@@ -96,7 +96,7 @@ function BookingForm(props) {
             <span id="error-msg">{mess.end_time}</span>
           </div>
         </div>
-        {/* <div id="form">
+         <div id="form">
           <span>Number Seats</span>
           <input
             type="number"
@@ -104,8 +104,8 @@ function BookingForm(props) {
             id="numberSeats"
             placeholder="Enter number seates"
           ></input>
-        </div> */}
-        {/* <div id="form">
+        </div>
+         <div id="form">
           <span>Amenities</span>
           <div className="d-flex flex-wrap justify-content-start gap-4">
             {listAmenties.map((amenty, index) => {
@@ -119,7 +119,7 @@ function BookingForm(props) {
               );
             })}
           </div>
-        </div> */}
+        </div> 
         <div id="form">
           <span>Purpose of the booking</span>
           <input

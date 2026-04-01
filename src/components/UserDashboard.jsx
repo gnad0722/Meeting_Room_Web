@@ -4,18 +4,40 @@ import StatsCard from "../components/StatsCard.jsx";
 import BookingList from "../components/BookingList.jsx";
 import {
   FaClock,
+  FaCheckCircle,
   FaSearch,
   FaFilter,
-  FaRegCheckSquare,
+  FaCalendarAlt,
   FaRegTimesCircle,
 } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext.js";
 import bookingService from "../services/booking.service.js";
-let Statistics = [
-  { number: 1, title: "Total Meeting Rooms", icon: <FaClock /> },
-  { number: 2, title: "Recurring Booking", icon: <FaFilter /> },
-  { number: 3, title: "Reschedule Bookings", icon: <FaRegTimesCircle /> },
-  { number: 4, title: "Today's Bookings", icon: <FaRegCheckSquare /> },
+import utils from "../utils/utils.js";
+const Statistics = [
+  {
+    number: 0,
+    title: "Total Meeting Rooms",
+    icon: <FaClock />,
+    color: "#111FA2",
+  },
+  {
+    number: 0,
+    title: "Confirm Booking",
+    icon: <FaCheckCircle />,
+    color: "#2F6B3F",
+  },
+  {
+    number: 0,
+    title: "Cancel Bookings",
+    icon: <FaRegTimesCircle />,
+    color: "#CE2626",
+  },
+  {
+    number: 0,
+    title: "Today's Bookings",
+    icon: <FaCalendarAlt />,
+    color: "#D97A2B",
+  },
 ];
 
 function cardCreate(list, index) {
@@ -25,6 +47,7 @@ function cardCreate(list, index) {
       title={list.title}
       icon={list.icon}
       key={index}
+      color={list.color}
     />
   );
 }
@@ -35,10 +58,12 @@ function UserDashboard() {
   const [loading, setLoading] = useState(true);
   async function getBookingListCustomer(userId) {
     const listBooking = await bookingService.getListBookingCustomer(userId);
+    utils.updateStatistics(Statistics, listBooking);
     setList(listBooking);
   }
   async function getBookingListAdmin(userId) {
     const listBooking = await bookingService.getListBookingAdmin(userId);
+    utils.updateStatistics(Statistics, listBooking);
     setList(listBooking);
   }
   async function searchBookingList(e) {
@@ -49,7 +74,6 @@ function UserDashboard() {
   useEffect(() => {
     if (user.role === "customer") getBookingListCustomer(user.id);
     else getBookingListAdmin(user.id);
-
     setLoading(false);
   }, []);
   if (loading) return <div>Loading....</div>;

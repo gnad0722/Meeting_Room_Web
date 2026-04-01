@@ -15,7 +15,7 @@ function BookingPage() {
     book_date: "",
     start_time:"",
     end_time:"",
-    agenda:[]
+    agenda:""
   });
   return (
     <div className="booking-page">

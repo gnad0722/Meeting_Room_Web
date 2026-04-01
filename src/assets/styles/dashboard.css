@@ -71,3 +71,16 @@ hr {
     width: 100.5%;
     margin-left: -5px;
 }
+.custom-icon{
+  font-size: 20px;
+  text-shadow: 0 0 1px black;
+}
+.pending{
+  color: gray;
+}
+.confirm{
+  color: #005F02;
+}
+.cancel{
+  color: #A82323;
+}

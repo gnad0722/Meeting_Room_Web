@@ -19,4 +19,19 @@ const getPageName = (pathname) => {
 
   return "Meeting Room";
 };
-export default { formatDate, getPageName };
+const formatDateTime = (isoString) => {
+  const date = new Date(isoString);
+
+  const pad = (n) => n.toString().padStart(2, '0');
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+export default { formatDate, getPageName, formatDateTime };

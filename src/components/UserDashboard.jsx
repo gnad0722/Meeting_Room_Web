@@ -4,6 +4,7 @@ import StatsCard from "../components/StatsCard.jsx";
 import BookingList from "../components/BookingList.jsx";
 import {
   FaClock,
+  FaSearch,
   FaFilter,
   FaRegCheckSquare,
   FaRegTimesCircle,
@@ -30,6 +31,7 @@ function cardCreate(list, index) {
 function UserDashboard() {
   const { user } = useContext(AuthContext);
   const [bookingList, setList] = useState([]);
+  const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(true);
   async function getBookingListCustomer(userId) {
     const listBooking = await bookingService.getListBookingCustomer(userId);
@@ -39,11 +41,15 @@ function UserDashboard() {
     const listBooking = await bookingService.getListBookingAdmin(userId);
     setList(listBooking);
   }
-
+  async function searchBookingList(e) {
+    e.preventDefault();
+    const listBooking = await bookingService.searchBooking(keyword, user.id);
+    setList(listBooking);
+  }
   useEffect(() => {
-    if (user.role==="customer")  getBookingListCustomer(user.id);
-    else getBookingListAdmin(user.id)
-   
+    if (user.role === "customer") getBookingListCustomer(user.id);
+    else getBookingListAdmin(user.id);
+
     setLoading(false);
   }, []);
   if (loading) return <div>Loading....</div>;
@@ -58,9 +64,14 @@ function UserDashboard() {
             className="form-control"
             placeholder="Search..."
             aria-label="Search"
+            onChange={(e) => setKeyword(e.target.value)}
           />
-          <button className="btn btn-outline-primary" type="submit">
-            <FaFilter /> Filter
+          <button
+            className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2"
+            type="submit"
+            onClick={searchBookingList}
+          >
+            <FaSearch /> Search
           </button>
         </form>
       </div>

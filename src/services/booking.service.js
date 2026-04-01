@@ -35,7 +35,6 @@ const postBooking = async (bookingData) => {
 const getListBookingCustomer = async (userId) => {
   try {
     const listBooking= await bookingApi.getListBookingCustomer(userId);
-    console.log(listBooking);
     return listBooking;
   } catch (Err) {
     if (Err.response.status===404) return [];
@@ -43,7 +42,6 @@ const getListBookingCustomer = async (userId) => {
   }
 };
 const getListBookingAdmin = async (userId) => {
-  console.log(userId);
   try {
     const listBooking= await bookingApi.getListBookingAdmin(userId);
     return listBooking;
@@ -52,4 +50,32 @@ const getListBookingAdmin = async (userId) => {
     else console.error(Err);
   }
 };
-export default { postBooking, getListBookingCustomer,getListBookingAdmin };
+const acceptBooking = async (id) =>{
+  try{
+    await bookingApi.acceptBooking(id);
+    return true;
+  }
+  catch(Err){
+   return false;
+  }
+}
+const cancelBooking = async (id)=>{
+  try{
+    await bookingApi.cancelBooking(id);
+    return true;
+  }
+  catch(Err){
+   return false;
+  }
+}
+const searchBooking = async (keyword,userId)=>{
+  try{
+    const listBooking=await bookingApi.searchBooking(keyword,userId);
+    return listBooking;
+  }
+  catch(Err){
+    if (Err.response.status===404) return [];
+    else console.error(Err);
+  }
+}
+export default { postBooking, getListBookingCustomer,getListBookingAdmin, acceptBooking, cancelBooking, searchBooking };

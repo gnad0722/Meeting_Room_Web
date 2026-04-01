@@ -7,6 +7,9 @@ import {
   FaRegCheckSquare,
   FaRegTimesCircle,
 } from "react-icons/fa";
+import utils from "../utils/utils";
+import StatusBooking from "./StatusBooking";
+import StatusPopup from "./StatusPopup";
 function BookingList(props) {
   const { user } = useContext(AuthContext);
   const bookingList = props.bookingList;
@@ -19,7 +22,7 @@ function BookingList(props) {
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>Booking Date & Time</th>
+            <th>Book At</th>
             <th>Location</th>
             <th>Agenda</th>
             <th>{user.role === "admin" ? "Action" : "Status"}</th>
@@ -32,16 +35,39 @@ function BookingList(props) {
               <td>{booking.date}</td>
               <td>{booking.start_time}</td>
               <td>{booking.end_time}</td>
-              <td>{booking.booking_datetime}</td>
+              <td>{utils.formatDateTime(booking.book_at)}</td>
               <td>{booking.location}</td>
               <td>{booking.agenda}</td>
               {user.role === "admin" ? (
                 <td>
-                  {booking.actionApprove}
-                  {booking.actionDelete}
+                  <StatusBooking id={booking.id} status={booking.status} role={"admin"} />
+                  <StatusPopup
+                    id={booking.id}
+                    message={{
+                      name: booking.room_name,
+                      date: booking.date,
+                      startTime: booking.start_time,
+                      endTime: booking.end_time,
+                    }}
+                    status={"confirm"}
+                    title={"Confirm This Booking"}
+                  />
+                   <StatusPopup
+                    id={booking.id}
+                    message={{
+                      name: booking.room_name,
+                      date: booking.date,
+                      startTime: booking.start_time,
+                      endTime: booking.end_time,
+                    }}
+                    status={"cancel"}
+                    title={"Cancel This Booking"}
+                  />
                 </td>
               ) : (
-                <td>{booking.status}</td>
+                <td>
+                  <StatusBooking status={booking.status} id={booking.id} role={"customer"}/>
+                </td>
               )}
             </tr>
           ))}

@@ -1,4 +1,5 @@
 import React from "react";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import UserHomepage from "./pages/UserHomepage";
 import BookingPage from "./pages/BookingPage";

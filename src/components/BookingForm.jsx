@@ -5,12 +5,12 @@ import RecurrenceForm from "./RecurrenceForm";
 import bookingService from "../services/booking.service";
 
 function BookingForm(props) {
-  const bookingData=props.bookingData;
+  const bookingData = props.bookingData;
   const [mess, setMess] = useState({
-      book_date: "",
-      start_time: "",
-      end_time: "",
-    });
+    book_date: "",
+    start_time: "",
+    end_time: "",
+  });
   const [listAmenties, setList] = useState([
     "Video",
     "Audio",
@@ -34,7 +34,6 @@ function BookingForm(props) {
     e.preventDefault();
     const response = await bookingService.postBooking(bookingData);
     if (response.success) {
-     
     } else {
       const errors = {};
       response.listErr.forEach((err) => {
@@ -61,7 +60,7 @@ function BookingForm(props) {
               })
             }
           />
-           <span id="error-msg">{mess.book_date}</span>
+          <span id="error-msg">{mess.book_date}</span>
         </div>
         <div className="d-flex w-100 justify-content-between">
           <div id="form" className="col-5">
@@ -78,7 +77,7 @@ function BookingForm(props) {
                 })
               }
             />
-             <span id="error-msg">{mess.start_time}</span>
+            <span id="error-msg">{mess.start_time}</span>
           </div>
           <div id="form" className="col-5">
             <span>End Time</span>
@@ -94,7 +93,7 @@ function BookingForm(props) {
                 })
               }
             />
-             <span id="error-msg">{mess.end_time}</span>
+            <span id="error-msg">{mess.end_time}</span>
           </div>
         </div>
         {/* <div id="form">
@@ -128,6 +127,12 @@ function BookingForm(props) {
             class="form-control"
             id="bookingPurpose"
             placeholder="Enter the purpose of the booking (Optional)"
+            onChange={(e) =>
+              props.handleDataBooking({
+                ...bookingData,
+                agenda: e.target.value,
+              })
+            }
           ></input>
         </div>
         <div id="form">

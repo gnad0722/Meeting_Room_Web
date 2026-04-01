@@ -19,4 +19,16 @@ const getListBookingAdmin = async (userId)=>{
     const response= await axiosClient.get(`/booking/admin/${userId}`);
     return response.data;
 }
-export default {postBooking, getListBookingCustomer, getListBookingAdmin}
+const acceptBooking = async (id)=>{
+    const response = await axiosClient.put(`/booking/accept/${id}`);
+    return response.data;
+}
+const cancelBooking = async (id)=>{
+    const response = await axiosClient.put(`/booking/cancel/${id}`);
+    return response.data;
+}
+const searchBooking = async (keyword,userId)=>{
+    const response = await axiosClient.get(`/booking/search/${userId}?keyword=${keyword}`);
+    return response.data;
+}
+export default {postBooking, getListBookingCustomer, getListBookingAdmin, acceptBooking,cancelBooking, searchBooking}

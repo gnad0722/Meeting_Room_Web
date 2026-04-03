@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import "../assets/styles/bookingPage.css";
 import Amenty from "./Amenty";
 import RecurrenceForm from "./RecurrenceForm";
 import bookingService from "../services/booking.service";
-
+import MessageSuccess from "./MesageSuccess";
+import LoadingModal from "./LoadingModal";
 function BookingForm(props) {
   const bookingData = props.bookingData;
+  const [successData, setSuccessData] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [mess, setMess] = useState({
     book_date: "",
     start_time: "",
@@ -33,9 +37,14 @@ function BookingForm(props) {
   }
   async function handleBooking(e) {
     e.preventDefault();
+    setLoading(true);
     const response = await bookingService.postBooking(bookingData);
     if (response.success) {
+      setLoading(false);
+      setSuccessData(bookingData);
+      setShowSuccess(true);
     } else {
+      setLoading(false);
       const errors = {};
       response.listErr.forEach((err) => {
         errors[err.path] = err.msg;
@@ -66,6 +75,7 @@ function BookingForm(props) {
         <div className="d-flex w-100 justify-content-between">
           <div id="form" className="col-5">
             <span>Start Time</span>
+
             <input
               type="time"
               class="form-control"
@@ -156,14 +166,27 @@ function BookingForm(props) {
           {recurrence && <RecurrenceForm />}
         </div>
         <div className="d-flex justify-content-end w-100">
-          <button type="button" class="btn btn-outline-primary">
+          <button
+            type="button"
+            class="btn btn-outline-primary me-auto"
+            onClick={() => window.location.reload()}
+          >
             Reset
+          </button>
+          <button type="button" class="btn btn-outline-primary">
+            Search
           </button>
           <button type="button" class="btn btn-primary" onClick={handleBooking}>
             Book
           </button>
         </div>
       </div>
+      <LoadingModal show={loading} />
+      <MessageSuccess
+        show={showSuccess}
+        successData={successData}
+        onClose={() => setShowSuccess(false)}
+      />
     </div>
   );
 }

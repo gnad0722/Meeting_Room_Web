@@ -12,8 +12,13 @@
     "axios": "^1.13.2",
     "boostrap": "^2.0.0",
     "bootstrap-icons": "^1.13.1",
+<<<<<<< HEAD
+=======
+    "date-fns": "^4.1.0",
+>>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
     "js-cookie": "^3.0.5",
     "react": "^19.2.3",
+    "react-datepicker": "^9.1.0",
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.12.0",

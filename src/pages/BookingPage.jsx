@@ -4,13 +4,16 @@ import Header from "../components/Header";
 import BookingForm from "../components/BookingForm";
 import roomService from "../services/room.service.js";
 import ListRoom from "../components/ListRoom";
+import utils from "../utils/utils.js";
 import { AuthContext } from "../context/AuthContext.js";
 
 function BookingPage() {
   const { user, loading } = useContext(AuthContext);
-
+  if (user === null) return <div>Loading....</div>;
   const [bookingData, setBooking] = useState({
-    user_id: null,
+    user_id: user.id,
+    email: user.email,
+    room_name: "",
     room_id: null,
     book_date: "",
     start_time: "",

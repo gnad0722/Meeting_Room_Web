@@ -1,4 +1,4 @@
-import React from "react";
+import React, { re } from "react";
 import "../assets/styles/bookingPage.css";
 import image from "../assets/images/meetingroom.jpg";
 import { LuVideo, LuMic, LuPresentation, LuProjector } from "react-icons/lu";
@@ -31,6 +31,7 @@ const renderAmenityIcons = (amenities = []) => {
 };
 
 function RoomCard(props) {
+<<<<<<< HEAD
   const navigate = useNavigate();
 
   return (
@@ -40,6 +41,33 @@ function RoomCard(props) {
         {props.name && props.name.length > 16
           ? props.name.slice(0, 16) + "..."
           : props.name}
+=======
+  const bookingData = props.bookingData;
+  const id = props.id;
+  function handleChosenRoom(id) {
+    if (bookingData.room_id === id) {
+      props.handleDataBooking({
+        ...props.bookingData,
+        room_id: null,
+        room_name: ""
+      });
+    } else {
+      props.handleDataBooking({
+        ...props.bookingData,
+        room_id: id,
+        room_name: props.room_name || "Room Name" // Assuming you have room_name in your props
+      });
+    }
+  }
+  return (
+    <div
+      className={"card " + (bookingData.room_id === id ? "card-chosen" : "")}
+    >
+      <img src={image} alt="Meeting Room" />
+      <span id="roomName">Room Name</span>
+      <span id="roomInfo">
+        Seating Capacity: <span>8</span>
+>>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
       </span>
       <span id="roomInfo">
         Seating Capacity: <span>{props.capacity}</span>
@@ -66,6 +94,7 @@ function RoomCard(props) {
         </button>
         <button
           type="button"
+<<<<<<< HEAD
           className="btn btn-primary"
           onClick={() =>
             props.handleDataBooking({
@@ -73,10 +102,15 @@ function RoomCard(props) {
               room_id: props.id,
             })
           }
+=======
+          class="btn btn-primary"
+          onClick={() => handleChosenRoom(id)}
+>>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
         >
           Choose
         </button>
       </div>
+<<<<<<< HEAD
       <MessageSuccess
         id="success"
         title="Message"
@@ -87,6 +121,8 @@ function RoomCard(props) {
           endTime: "12:00 AM",
         }}
       />
+=======
+>>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
     </div>
   );
 }

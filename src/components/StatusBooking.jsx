@@ -7,7 +7,11 @@ function StatusBooking(props) {
       <i
         style={role === "admin" ? { cursor: "pointer" } : {}}
         className={`bi bi-calendar-check custom-icon ${
+<<<<<<< HEAD
           status === "confirm" ? "confirm" : "pending"
+=======
+          status === "confirmed" ? "confirm" : "pending"
+>>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
         }`}
         {...(role === "admin" && status === "pending"
           ? {
@@ -19,7 +23,11 @@ function StatusBooking(props) {
       <i
           style={role === "admin" ? { cursor: "pointer" } : {}}
         className={`bi bi-calendar-x custom-icon ${
+<<<<<<< HEAD
           status === "cancel" ? "cancel" : "pending"
+=======
+          status === "cancelled" ? "cancel" : "pending"
+>>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
         }`}
         {...(role === "admin" && status === "pending"
           ? {

@@ -7,7 +7,7 @@ function StatusBooking(props) {
       <i
         style={role === "admin" ? { cursor: "pointer" } : {}}
         className={`bi bi-calendar-check custom-icon ${
-          status === "confirm" ? "confirm" : "pending"
+          status === "confirmed" ? "confirm" : "pending"
         }`}
         {...(role === "admin" && status === "pending"
           ? {
@@ -19,7 +19,7 @@ function StatusBooking(props) {
       <i
           style={role === "admin" ? { cursor: "pointer" } : {}}
         className={`bi bi-calendar-x custom-icon ${
-          status === "cancel" ? "cancel" : "pending"
+          status === "cancelled" ? "cancel" : "pending"
         }`}
         {...(role === "admin" && status === "pending"
           ? {

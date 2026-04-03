@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import "../assets/styles/bookingPage.css";
 import Amenty from "./Amenty";
 import RecurrenceForm from "./RecurrenceForm";
 import bookingService from "../services/booking.service";
-
+import MessageSuccess from "./MesageSuccess";
+import LoadingModal from "./LoadingModal";
 function BookingForm(props) {
   const bookingData = props.bookingData;
+  const [successData, setSuccessData] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [mess, setMess] = useState({
     book_date: "",
     start_time: "",
@@ -32,9 +36,14 @@ function BookingForm(props) {
   }
   async function handleBooking(e) {
     e.preventDefault();
+    setLoading(true);
     const response = await bookingService.postBooking(bookingData);
     if (response.success) {
+      setLoading(false);
+      setSuccessData(bookingData);
+      setShowSuccess(true);
     } else {
+      setLoading(false);
       const errors = {};
       response.listErr.forEach((err) => {
         errors[err.path] = err.msg;
@@ -60,11 +69,13 @@ function BookingForm(props) {
               })
             }
           />
+
           <span id="error-msg">{mess.book_date}</span>
         </div>
         <div className="d-flex w-100 justify-content-between">
           <div id="form" className="col-5">
             <span>Start Time</span>
+
             <input
               type="time"
               class="form-control"
@@ -96,7 +107,7 @@ function BookingForm(props) {
             <span id="error-msg">{mess.end_time}</span>
           </div>
         </div>
-         <div id="form">
+        <div id="form">
           <span>Number Seats</span>
           <input
             type="number"
@@ -105,7 +116,7 @@ function BookingForm(props) {
             placeholder="Enter number seates"
           ></input>
         </div>
-         <div id="form">
+        <div id="form">
           <span>Amenities</span>
           <div className="d-flex flex-wrap justify-content-start gap-4">
             {listAmenties.map((amenty, index) => {
@@ -119,7 +130,7 @@ function BookingForm(props) {
               );
             })}
           </div>
-        </div> 
+        </div>
         <div id="form">
           <span>Purpose of the booking</span>
           <input
@@ -155,14 +166,27 @@ function BookingForm(props) {
           {recurrence && <RecurrenceForm />}
         </div>
         <div className="d-flex justify-content-end w-100">
-          <button type="button" class="btn btn-outline-primary">
+          <button
+            type="button"
+            class="btn btn-outline-primary me-auto"
+            onClick={() => window.location.reload()}
+          >
             Reset
+          </button>
+          <button type="button" class="btn btn-outline-primary">
+            Search
           </button>
           <button type="button" class="btn btn-primary" onClick={handleBooking}>
             Book
           </button>
         </div>
       </div>
+      <LoadingModal show={loading} />
+      <MessageSuccess
+        show={showSuccess}
+        successData={successData}
+        onClose={() => setShowSuccess(false)}
+      />
     </div>
   );
 }

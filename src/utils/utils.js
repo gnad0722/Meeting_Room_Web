@@ -35,8 +35,8 @@ const updateStatistics = (Statistics, bookings) => {
   const today = new Date().toISOString().split("T")[0];
 
   const totalBookings = bookings.length;
-  const confirmCount = bookings.filter(b => b.status === "confirm").length;
-  const cancelCount = bookings.filter(b => b.status === "cancel").length;
+  const confirmCount = bookings.filter(b => b.status === "confirmed").length;
+  const cancelCount = bookings.filter(b => b.status === "cancelled").length;
   const todayCount = bookings.filter(b => b.date === today).length;
 
   Statistics.forEach((item) => {

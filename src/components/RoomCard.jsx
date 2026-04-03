@@ -7,8 +7,26 @@ import MessageSuccess from "./MesageSuccess";
 import bookingService from "../services/booking.service";
 function RoomCard(props) {
   const bookingData = props.bookingData;
+  const id = props.id;
+  function handleChosenRoom(id) {
+    if (bookingData.room_id === id) {
+      props.handleDataBooking({
+        ...props.bookingData,
+        room_id: null,
+        room_name: ""
+      });
+    } else {
+      props.handleDataBooking({
+        ...props.bookingData,
+        room_id: id,
+        room_name: props.room_name || "Room Name" // Assuming you have room_name in your props
+      });
+    }
+  }
   return (
-    <div className="card">
+    <div
+      className={"card " + (bookingData.room_id === id ? "card-chosen" : "")}
+    >
       <img src={image} alt="Meeting Room" />
       <span id="roomName">Room Name</span>
       <span id="roomInfo">
@@ -38,27 +56,11 @@ function RoomCard(props) {
         <button
           type="button"
           class="btn btn-primary"
-          
-          onClick={() =>
-            props.handleDataBooking({
-              ...props.bookingData,
-              room_id:  9,
-            })
-          }
+          onClick={() => handleChosenRoom(id)}
         >
           Choose
         </button>
       </div>
-      <MessageSuccess
-        id="success"
-        title="Message"
-        message={{
-          name: " Bhagirathi Room",
-          date: "30 Nov 2021",
-          startTime: "11:00 AM",
-          endTime: "12:00 AM",
-        }}
-      />
     </div>
   );
 }

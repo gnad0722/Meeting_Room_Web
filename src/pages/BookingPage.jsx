@@ -49,6 +49,7 @@ function BookingPage() {
 
   const fetchRoom = async () => {
     try {
+      console.log(query);
       const data = await roomService.getAllRooms(query);
       console.log(data.data);
       setRooms(data.data || []);
@@ -74,6 +75,7 @@ function BookingPage() {
         <BookingForm
           bookingData={bookingData}
           handleDataBooking={setBooking}
+          query={query}
           setQuery={setQuery}
         />
 
@@ -83,6 +85,8 @@ function BookingPage() {
           onPageChange={(newPage) =>
             setQuery((prev) => ({ ...prev, page: newPage }))
           }
+          query={query}
+          setQuery={setQuery}
         />
       </div>
     </div>

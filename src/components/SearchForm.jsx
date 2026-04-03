@@ -10,12 +10,13 @@ function SearchForm(props) {
 
   const handleKeyDown = (e) => {
      if (e.key === "Enter") {
-      props.onSubmit(keyword);
+      props.setQuery((prev) => ({ ...prev, keyword }));
     }
   };
 
   const handleClick = () => {
-    props.onSubmit(keyword);
+    props.setQuery((prev) => ({ ...prev, keyword }));
+    // props.onSubmit(keyword);
   };
 
   return (

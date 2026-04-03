@@ -1,20 +1,22 @@
 import roomApi from "../apis/room.api.js";
 
-const getAllRooms = async ({
-  keyword = "",
-  capacity,
-  amenities,
-  date,
-  startTime,
-  endTime,
-  page = 1,
-  limit = 9,
-}) => {
+const getAllRooms = async (query) => {
+  const {
+    keyword = "",
+    capacity,
+    amenities,
+    date,
+    startTime,
+    endTime,
+    page = 1,
+    limit = 9,
+  } = query;
   const response = {
     success: true,
     listErr: [],
   };
   try {
+    console.log("a:",query);
     const data = await roomApi.getAllRooms({
       keyword,
       capacity,

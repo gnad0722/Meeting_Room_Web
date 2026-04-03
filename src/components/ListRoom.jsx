@@ -16,14 +16,14 @@ function createCard(room) {
     />
   );
 }
-function ListRoom({ rooms, pagination, onPageChange }) {
+function ListRoom({ rooms, pagination, onPageChange, setQuery, query }) {
   const { page = 1, totalPages = 1 } = pagination || {};
 
   return (
     <div className="booking-list">
       <div className="d-flex w-100 justify-content-between">
         <span id="title">Rooms Availability</span>
-        <SearchForm />
+        <SearchForm setQuery={setQuery} query={query} />
       </div>
 
       <div className="container-card">

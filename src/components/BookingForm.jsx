@@ -10,6 +10,7 @@ function BookingForm(props) {
   const [successData, setSuccessData] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [capacity, setCapacity] = useState(null);
   const [mess, setMess] = useState({
     book_date: "",
     start_time: "",
@@ -51,6 +52,19 @@ function BookingForm(props) {
       });
       setMess(errors);
     }
+  }
+  const handleFormBooking = (e) =>{
+    e.preventDefault();
+    const data = {
+      ...props.query,
+      capacity: capacity,
+      date: bookingData.book_date,
+      startTime: bookingData.start_time,
+      endTime: bookingData.end_time,
+      amenities: listChosen
+    }
+    console.log(data);
+    props.setQuery(data);
   }
   return (
     <div className="form-container">
@@ -114,6 +128,8 @@ function BookingForm(props) {
             class="form-control"
             id="numberSeats"
             placeholder="Enter number seates"
+            value={capacity || ""}
+            onChange={(e) => setCapacity(e.target.value)}
           ></input>
         </div>
          <div id="form">
@@ -173,7 +189,7 @@ function BookingForm(props) {
           >
             Reset
           </button>
-          <button type="button" class="btn btn-outline-primary">
+          <button type="button" class="btn btn-outline-primary" onClick={handleFormBooking}>   
             Search
           </button>
           <button type="button" class="btn btn-primary" onClick={handleBooking}>

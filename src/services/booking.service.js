@@ -1,7 +1,7 @@
 import bookingApi from "../apis/booking.api.js";
 
 const postBooking = async (bookingData) => {
-  const { user_id, room_id, book_date, start_time, end_time, agenda } =
+  const { user_id, room_id,room_name,email, book_date, start_time, end_time, agenda } =
     bookingData;
   const response = {
     success: true,
@@ -11,6 +11,8 @@ const postBooking = async (bookingData) => {
     const data = await bookingApi.postBooking(
       user_id,
       room_id,
+      room_name,
+      email,
       book_date,
       start_time,
       end_time,

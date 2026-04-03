@@ -9,7 +9,7 @@ function StatusPopup(props) {
   async function handleAccept() {
     try{
         const success=await bookingService.acceptBooking(id);
-        // if (success)  window.location.reload();
+        if (success)  window.location.reload();
     }
     catch(Err){
         console.error(Err)

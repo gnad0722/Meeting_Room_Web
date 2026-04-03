@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import "../assets/styles/bookingPage.css";
 import Amenty from "./Amenty";
 import RecurrenceForm from "./RecurrenceForm";
+import bookingService from "../services/booking.service";
 
-function BookingForm() {
+function BookingForm(props) {
+  const bookingData = props.bookingData;
+  const [mess, setMess] = useState({
+    book_date: "",
+    start_time: "",
+    end_time: "",
+  });
   const [listAmenties, setList] = useState([
     "Video",
     "Audio",
@@ -11,6 +18,7 @@ function BookingForm() {
     "HDMI",
     "Projector",
     "Speaker Phone",
+    "Wifi"
   ]);
   const [listChosen, setChosen] = useState([]);
   const [recurrence, setRecurrence] = useState(false);
@@ -23,19 +31,22 @@ function BookingForm() {
       }
     });
   }
+  async function handleBooking(e) {
+    e.preventDefault();
+    const response = await bookingService.postBooking(bookingData);
+    if (response.success) {
+    } else {
+      const errors = {};
+      response.listErr.forEach((err) => {
+        errors[err.path] = err.msg;
+      });
+      setMess(errors);
+    }
+  }
   return (
     <div className="form-container">
       <span id="title">Book A Meeting Room</span>
       <div className="booking-form">
-        <div id="form">
-          <span>Location</span>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Choose your location</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
         <div id="form">
           <span>Date</span>
           <input
@@ -43,7 +54,14 @@ function BookingForm() {
             class="form-control"
             id="birthday"
             name="birthday"
+            onChange={(e) =>
+              props.handleDataBooking({
+                ...props.bookingData,
+                book_date: e.target.value,
+              })
+            }
           />
+          <span id="error-msg">{mess.book_date}</span>
         </div>
         <div className="d-flex w-100 justify-content-between">
           <div id="form" className="col-5">
@@ -53,7 +71,14 @@ function BookingForm() {
               class="form-control"
               id="appt-time"
               name="appt-time"
+              onChange={(e) =>
+                props.handleDataBooking({
+                  ...props.bookingData,
+                  start_time: e.target.value,
+                })
+              }
             />
+            <span id="error-msg">{mess.start_time}</span>
           </div>
           <div id="form" className="col-5">
             <span>End Time</span>
@@ -62,10 +87,17 @@ function BookingForm() {
               class="form-control"
               id="appt-time"
               name="appt-time"
+              onChange={(e) =>
+                props.handleDataBooking({
+                  ...props.bookingData,
+                  end_time: e.target.value,
+                })
+              }
             />
+            <span id="error-msg">{mess.end_time}</span>
           </div>
         </div>
-        <div id="form">
+         <div id="form">
           <span>Number Seats</span>
           <input
             type="number"
@@ -74,7 +106,7 @@ function BookingForm() {
             placeholder="Enter number seates"
           ></input>
         </div>
-        <div id="form">
+         <div id="form">
           <span>Amenities</span>
           <div className="d-flex flex-wrap justify-content-start gap-4">
             {listAmenties.map((amenty, index) => {
@@ -88,7 +120,7 @@ function BookingForm() {
               );
             })}
           </div>
-        </div>
+        </div> 
         <div id="form">
           <span>Purpose of the booking</span>
           <input
@@ -96,6 +128,12 @@ function BookingForm() {
             class="form-control"
             id="bookingPurpose"
             placeholder="Enter the purpose of the booking (Optional)"
+            onChange={(e) =>
+              props.handleDataBooking({
+                ...bookingData,
+                agenda: e.target.value,
+              })
+            }
           ></input>
         </div>
         <div id="form">
@@ -121,12 +159,11 @@ function BookingForm() {
           <button type="button" class="btn btn-outline-primary">
             Reset
           </button>
-          <button type="button" class="btn btn-primary">
-            Search
+          <button type="button" class="btn btn-primary" onClick={handleBooking}>
+            Book
           </button>
         </div>
       </div>
-    
     </div>
   );
 }

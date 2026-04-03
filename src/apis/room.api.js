@@ -1,7 +1,27 @@
 import { axiosClient, API_BASE } from "./axiosClient.js";
 
-const getAllRooms = async () => {
-  const response = await axiosClient.get("/room");
+const getAllRooms = async ({
+  keyword = "",
+  capacity,
+  amenities,
+  date,
+  startTime,
+  endTime,
+  page = 1,
+  limit = 9,
+}) => {
+  const response = await axiosClient.get("/room", {
+    params: {
+      keyword,
+      capacity,
+      amenities,
+      date,
+      startTime,
+      endTime,
+      page,
+      limit,
+    }
+  });
   return response.data;
 };
 

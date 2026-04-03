@@ -13,7 +13,7 @@ function DetailRoomPage() {
   const {user,loading}=useContext(AuthContext);
   const location = useLocation();
   const room = location.state?.room;
-  console.log(room);
+  console.log("room:", room);
   if (user === null) return <div>Loading....</div>
   return (
     <div className="detail-page">

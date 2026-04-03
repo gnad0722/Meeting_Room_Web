@@ -49,10 +49,9 @@ function BookingPage() {
 
   const fetchRoom = async () => {
     try {
-      console.log(query);
       const data = await roomService.getAllRooms(query);
-      console.log(data.data);
       setRooms(data.data || []);
+      
       setPagination(data.pagination);
     } catch (error) {
       console.error(error.message);

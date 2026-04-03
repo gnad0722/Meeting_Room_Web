@@ -31,17 +31,7 @@ const renderAmenityIcons = (amenities = []) => {
 };
 
 function RoomCard(props) {
-<<<<<<< HEAD
   const navigate = useNavigate();
-
-  return (
-    <div className="card">
-      <img src={props.image} alt="Meeting Room" />
-      <span id="roomName">
-        {props.name && props.name.length > 16
-          ? props.name.slice(0, 16) + "..."
-          : props.name}
-=======
   const bookingData = props.bookingData;
   const id = props.id;
   function handleChosenRoom(id) {
@@ -60,14 +50,12 @@ function RoomCard(props) {
     }
   }
   return (
-    <div
-      className={"card " + (bookingData.room_id === id ? "card-chosen" : "")}
-    >
-      <img src={image} alt="Meeting Room" />
-      <span id="roomName">Room Name</span>
-      <span id="roomInfo">
-        Seating Capacity: <span>8</span>
->>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
+    <div className="card">
+      <img src={props.image} alt="Meeting Room" />
+      <span id="roomName">
+        {props.name && props.name.length > 16
+          ? props.name.slice(0, 16) + "..."
+          : props.name}
       </span>
       <span id="roomInfo">
         Seating Capacity: <span>{props.capacity}</span>
@@ -94,35 +82,12 @@ function RoomCard(props) {
         </button>
         <button
           type="button"
-<<<<<<< HEAD
-          className="btn btn-primary"
-          onClick={() =>
-            props.handleDataBooking({
-              ...props.bookingData,
-              room_id: props.id,
-            })
-          }
-=======
           class="btn btn-primary"
           onClick={() => handleChosenRoom(id)}
->>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
         >
           Choose
         </button>
       </div>
-<<<<<<< HEAD
-      <MessageSuccess
-        id="success"
-        title="Message"
-        message={{
-          name: " Bhagirathi Room",
-          date: "30 Nov 2021",
-          startTime: "11:00 AM",
-          endTime: "12:00 AM",
-        }}
-      />
-=======
->>>>>>> 95150e0ecbb898ea1b9d7330fb232265f1cef9f3
     </div>
   );
 }

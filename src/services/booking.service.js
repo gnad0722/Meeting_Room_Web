@@ -53,18 +53,18 @@ const getListBookingAdmin = async (userId) => {
     else console.error(Err);
   }
 };
-const acceptBooking = async (id) =>{
+const acceptBooking = async (id, userId) =>{
   try{
-    await bookingApi.acceptBooking(id);
+    await bookingApi.acceptBooking(id, userId);
     return true;
   }
   catch(Err){
    return false;
   }
 }
-const cancelBooking = async (id)=>{
+const cancelBooking = async (id, userId)=>{
   try{
-    await bookingApi.cancelBooking(id);
+    await bookingApi.cancelBooking(id, userId);
     return true;
   }
   catch(Err){

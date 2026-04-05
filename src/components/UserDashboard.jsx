@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import "../assets/styles/dashboard.css";
 import StatsCard from "../components/StatsCard.jsx";
 import BookingList from "../components/BookingList.jsx";
@@ -13,6 +13,8 @@ import {
 import { AuthContext } from "../context/AuthContext.js";
 import bookingService from "../services/booking.service.js";
 import utils from "../utils/utils.js";
+import { socket } from "../services/socket.js";
+import { GiConsoleController } from "react-icons/gi";
 const Statistics = [
   {
     number: 0,
@@ -71,10 +73,31 @@ function UserDashboard() {
     const listBooking = await bookingService.searchBooking(keyword, user.id);
     setList(listBooking);
   }
+
+  const handelNewStatus = useCallback((data) => {
+    const id = data.id;
+    const newStatus = data.status;
+    setList((prevList) => utils.updateStatusById(prevList, id, newStatus));
+  }, []);
+  const handleNewBookingForAdmin = useCallback(async () => {
+    const listBooking = await bookingService.getListBookingAdmin(user.id);
+    utils.updateStatistics(Statistics, listBooking);
+    setList(listBooking);
+    console.log("New booking received for admin dashboard");
+  }, []);
+
   useEffect(() => {
     if (user.role === "customer") getBookingListCustomer(user.id);
-    else getBookingListAdmin(user.id);
+    else {
+      getBookingListAdmin(user.id);
+      socket.on("newBooking", handleNewBookingForAdmin);
+    }
+    socket.on("newStatus", handelNewStatus);
     setLoading(false);
+    return () => {
+      socket.off("newStatus", handelNewStatus);
+      socket.off("newBooking", handleNewBookingForAdmin);
+    };
   }, []);
   if (loading) return <div>Loading....</div>;
   return (

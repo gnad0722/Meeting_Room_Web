@@ -16,7 +16,15 @@ function createCard(room) {
     />
   );
 }
-function ListRoom({ rooms, pagination, onPageChange, setQuery, query, bookingData, handleDataBooking }) {
+function ListRoom({
+  rooms,
+  pagination,
+  onPageChange,
+  setQuery,
+  query,
+  bookingData,
+  handleDataBooking,
+}) {
   const { page = 1, totalPages = 1 } = pagination || {};
 
   return (
@@ -45,10 +53,7 @@ function ListRoom({ rooms, pagination, onPageChange, setQuery, query, bookingDat
 
       {totalPages > 1 && (
         <div className="pagination">
-          <button
-            disabled={page === 1}
-            onClick={() => onPageChange(page - 1)}
-          >
+          <button disabled={page === 1} onClick={() => onPageChange(page - 1)}>
             Prev
           </button>
 
@@ -58,9 +63,8 @@ function ListRoom({ rooms, pagination, onPageChange, setQuery, query, bookingDat
               <button
                 key={p}
                 onClick={() => onPageChange(p)}
-                style={{
-                  fontWeight: page === p ? "bold" : "normal",
-                }}
+                // Thêm class "active" nếu là trang hiện tại
+                className={page === p ? "active" : ""}
               >
                 {p}
               </button>

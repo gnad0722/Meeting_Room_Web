@@ -21,7 +21,6 @@ function Header(props) {
   const wrapperRef = useRef();
   const [unreadCount, setUnreadCount] = useState(0);
   const fetchUnreadCount = useCallback(async () => {
-    console.log("fetching unread count...");
     try {
       const notifications = await notiService.getNotifications(1);
       const count = utils.countUnread(notifications);
@@ -30,10 +29,8 @@ function Header(props) {
       console.error(err);
     }
   }, []);
-  console.log(socket.listeners("newNotification").length);
   useEffect(() => {
     fetchUnreadCount();
-    console.log(socket.id);
     socket.on("newNotification", fetchUnreadCount);
     return () => socket.off("newNotification", fetchUnreadCount);
   }, []);

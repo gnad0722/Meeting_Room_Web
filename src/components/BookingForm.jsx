@@ -57,6 +57,7 @@ function BookingForm(props) {
     e.preventDefault();
     const data = {
       ...props.query,
+      page: 1,
       capacity: capacity,
       date: bookingData.book_date,
       startTime: bookingData.start_time,

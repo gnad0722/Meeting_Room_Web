@@ -11,6 +11,8 @@ const getAllRooms = async (query) => {
     page = 1,
     limit = 9,
   } = query;
+  console.log("b:",query);
+  
   const response = {
     success: true,
     listErr: [],

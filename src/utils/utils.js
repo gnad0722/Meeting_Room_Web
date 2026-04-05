@@ -51,4 +51,37 @@ const updateStatistics = (Statistics, bookings) => {
     }
   });
 };
-export default { formatDate, getPageName, formatDateTime, updateStatistics };
+const groupByDate = (notifications) => {
+  const groups = {};
+
+  const today = new Date().toDateString();
+
+  notifications.forEach((noti) => {
+    const date = new Date(noti.created_at);
+    const dateKey = date.toDateString();
+
+    let label;
+
+    if (dateKey === today) {
+      label = "Today";
+    } else {
+      const d = String(date.getDate()).padStart(2, "0");
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const y = String(date.getFullYear()).slice(-2);
+      label = `${d}/${m}/${y}`;
+    }
+
+    if (!groups[label]) {
+      groups[label] = [];
+    }
+
+    groups[label].push(noti);
+  });
+
+  return groups;
+};
+
+const countUnread = (notifications) => {
+  return notifications.filter(n => !n.is_read).length;
+};
+export default { formatDate, getPageName, formatDateTime, updateStatistics, groupByDate, countUnread };

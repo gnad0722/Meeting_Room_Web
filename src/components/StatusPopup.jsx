@@ -16,7 +16,7 @@ function StatusPopup(props) {
           user_id,
           `Your booking for ${message.name} on ${message.date} from ${message.startTime} to ${message.endTime} has been confirmed by the admin.`,
         );
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (Err) {
       console.error(Err);

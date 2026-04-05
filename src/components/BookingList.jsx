@@ -40,8 +40,13 @@ function BookingList(props) {
               <td>{booking.agenda}</td>
               {user.role === "admin" ? (
                 <td>
-                  <StatusBooking id={booking.id} status={booking.status} role={"admin"} />
+                  <StatusBooking
+                    id={booking.id}
+                    status={booking.status}
+                    role={"admin"}
+                  />
                   <StatusPopup
+                    user_id={booking.user_id}
                     id={booking.id}
                     message={{
                       name: booking.room_name,
@@ -52,8 +57,9 @@ function BookingList(props) {
                     status={"confirm"}
                     title={"Confirm This Booking"}
                   />
-                   <StatusPopup
+                  <StatusPopup
                     id={booking.id}
+                    user_id={booking.user_id}
                     message={{
                       name: booking.room_name,
                       date: booking.date,
@@ -66,7 +72,11 @@ function BookingList(props) {
                 </td>
               ) : (
                 <td>
-                  <StatusBooking status={booking.status} id={booking.id} role={"customer"}/>
+                  <StatusBooking
+                    status={booking.status}
+                    id={booking.id}
+                    role={"customer"}
+                  />
                 </td>
               )}
             </tr>

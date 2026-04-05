@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import notiService from "../services/noti.service";
 import utils from "../utils/utils.js";
+import { socket } from "../services/socket.js";
 const NotificationPopup = ({ open, onClose, wrapperRef, setUnreadCount }) => {
   const popupRef = useRef();
   const listRef = useRef();
@@ -9,6 +10,7 @@ const NotificationPopup = ({ open, onClose, wrapperRef, setUnreadCount }) => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [hasNew, setHasNew] = useState(false);  
   const handleMarkAsRead = async (notiId) => {
     try {
       await notiService.maskAsRead(notiId);
@@ -53,18 +55,22 @@ const NotificationPopup = ({ open, onClose, wrapperRef, setUnreadCount }) => {
     }
   }, [page]);
 
-  const handleScroll = () => {
+  const handleScroll = (e) => {
     const el = listRef.current;
     if (!el || loading || !hasMore) return;
 
     if (el.scrollTop + el.clientHeight >= el.scrollHeight - 10) {
       setPage((prev) => prev + 1);
     }
+    if (e.target.scrollTop === 0) {
+      setHasNew(false);
+    }
   };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setHasNew(false);
         onClose();
       }
     };
@@ -77,12 +83,33 @@ const NotificationPopup = ({ open, onClose, wrapperRef, setUnreadCount }) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [open, onClose]);
-
+  const handleNewNotification = useCallback((data) => {
+    setNotifications((prev) => [data, ...prev]);
+    setUnreadCount((prev) => prev + 1);
+    setHasNew(true);
+  }, []);
+  useEffect(() => {
+    socket.on("newNotification", handleNewNotification);
+    return () => socket.off("newNotification", handleNewNotification);
+  }, []);
   if (!open) return null;
+
   const grouped = utils.groupByDate(notifications);
   return (
     <div className="notification-popup" ref={popupRef}>
-      <div className="notification-header">Notifications</div>
+      <div className="notification-header">
+        <span>Notificatons</span>
+        {hasNew && (
+          <span
+            onClick={() => {
+              setHasNew(false);
+            }}
+            className="has-new"
+          >
+            You have a new notification
+          </span>
+        )}
+      </div>
 
       <div className="notification-list" ref={listRef} onScroll={handleScroll}>
         {Object.keys(grouped).length === 0 ? (

@@ -12,6 +12,7 @@ function BookingPage() {
   if (user === null) return <div>Loading....</div>;
   const [bookingData, setBooking] = useState({
     user_id: user.id,
+    admin_id:null,
     email: user.email,
     room_name: "",
     room_id: null,
@@ -51,7 +52,7 @@ function BookingPage() {
     try {
       const data = await roomService.getAllRooms(query);
       setRooms(data.data || []);
-      
+
       setPagination(data.pagination);
     } catch (error) {
       console.error(error.message);
@@ -86,6 +87,8 @@ function BookingPage() {
           }
           query={query}
           setQuery={setQuery}
+          bookingData={bookingData}
+          handleDataBooking={setBooking}
         />
       </div>
     </div>

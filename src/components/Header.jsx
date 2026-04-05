@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect, useCallback } from "react";
 import logo from "../assets/images/logoweb.png";
 import { MdLogout } from "react-icons/md";
 import { FaUserCircle, FaBell } from "react-icons/fa";
@@ -9,6 +9,7 @@ import utils from "../utils/utils";
 import authService from "../services/auth.service";
 import NotificationPopup from "./NotificationPopup";
 import notiService from "../services/noti.service";
+import { socket } from "../services/socket.js";
 function Header(props) {
   const { setUserinfo, user } = useContext(AuthContext);
   const location = useLocation();
@@ -16,21 +17,25 @@ function Header(props) {
   const navigate = useNavigate();
   const authed = user ? true : false;
   const [open, setOpen] = useState(false);
-  const [page,setPage]=useState(1);
+  const [page, setPage] = useState(1);
   const wrapperRef = useRef();
   const [unreadCount, setUnreadCount] = useState(0);
-
+  const fetchUnreadCount = useCallback(async () => {
+    console.log("fetching unread count...");
+    try {
+      const notifications = await notiService.getNotifications(1);
+      const count = utils.countUnread(notifications);
+      setUnreadCount(count);
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+  console.log(socket.listeners("newNotification").length);
   useEffect(() => {
-    const fetchUnreadCount = async () => {
-      try {
-        const notifications = await notiService.getNotifications(1);
-        const count = utils.countUnread(notifications);
-        setUnreadCount(count);
-      } catch (err) {
-        console.error(err);
-      }
-    };
     fetchUnreadCount();
+    console.log(socket.id);
+    socket.on("newNotification", fetchUnreadCount);
+    return () => socket.off("newNotification", fetchUnreadCount);
   }, []);
 
   async function handleLogout() {
@@ -42,8 +47,7 @@ function Header(props) {
       console.error(Err);
     }
   }
-  useEffect(() => {},[]);
-  
+
   return (
     <div className="header-container">
       <div className="header-content">
@@ -72,10 +76,10 @@ function Header(props) {
                 Meeting Room
               </div>
             </div>
-            <div ref={wrapperRef}  className="notification">
+            <div ref={wrapperRef} className="notification">
               <FaBell
                 style={{ cursor: "pointer" }}
-              onClick={() => setOpen((prev) => !prev)}
+                onClick={() => setOpen((prev) => !prev)}
               />
               {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
               <NotificationPopup

@@ -5,6 +5,7 @@ import RecurrenceForm from "./RecurrenceForm";
 import bookingService from "../services/booking.service";
 import MessageSuccess from "./MesageSuccess";
 import LoadingModal from "./LoadingModal";
+import notiService from "../services/noti.service";
 function BookingForm(props) {
   const bookingData = props.bookingData;
   const [successData, setSuccessData] = useState(null);
@@ -23,7 +24,7 @@ function BookingForm(props) {
     "HDMI",
     "Projector",
     "Speaker Phone",
-    "Wifi"
+    "Wifi",
   ]);
   const [listChosen, setChosen] = useState([]);
   const [recurrence, setRecurrence] = useState(false);
@@ -44,6 +45,10 @@ function BookingForm(props) {
       setLoading(false);
       setSuccessData(bookingData);
       setShowSuccess(true);
+      await notiService.createNoti(
+        bookingData.admin_id,
+        `You have a new booking for ${bookingData.room_name} on ${bookingData.book_date} from ${bookingData.start_time} to ${bookingData.end_time}. Please check and confirm or cancel the booking in time.`,
+      );
     } else {
       setLoading(false);
       const errors = {};
@@ -53,7 +58,7 @@ function BookingForm(props) {
       setMess(errors);
     }
   }
-  const handleFormBooking = (e) =>{
+  const handleFormBooking = (e) => {
     e.preventDefault();
     const data = {
       ...props.query,
@@ -62,11 +67,11 @@ function BookingForm(props) {
       date: bookingData.book_date,
       startTime: bookingData.start_time,
       endTime: bookingData.end_time,
-      amenities: listChosen
-    }
+      amenities: listChosen,
+    };
     console.log(data);
     props.setQuery(data);
-  }
+  };
   return (
     <div className="form-container">
       <span id="title">Book A Meeting Room</span>
@@ -122,7 +127,7 @@ function BookingForm(props) {
             <span id="error-msg">{mess.end_time}</span>
           </div>
         </div>
-         <div id="form">
+        <div id="form">
           <span>Number Seats</span>
           <input
             type="number"
@@ -133,7 +138,7 @@ function BookingForm(props) {
             onChange={(e) => setCapacity(e.target.value)}
           ></input>
         </div>
-         <div id="form">
+        <div id="form">
           <span>Amenities</span>
           <div className="d-flex flex-wrap justify-content-start gap-4">
             {listAmenties.map((amenty, index) => {
@@ -147,7 +152,7 @@ function BookingForm(props) {
               );
             })}
           </div>
-        </div> 
+        </div>
         <div id="form">
           <span>Purpose of the booking</span>
           <input
@@ -190,7 +195,11 @@ function BookingForm(props) {
           >
             Reset
           </button>
-          <button type="button" class="btn btn-outline-primary" onClick={handleFormBooking}>   
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={handleFormBooking}
+          >
             Search
           </button>
           <button type="button" class="btn btn-primary" onClick={handleBooking}>

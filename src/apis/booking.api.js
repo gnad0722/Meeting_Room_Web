@@ -1,8 +1,10 @@
 import { axiosClient, API_BASE } from "./axiosClient.js";
 
-const postBooking= async (user_id, room_id,room_name,email,book_date, start_time, end_time,  agenda)=>{
+const postBooking= async (user_id,admin_id ,room_id,room_name,email,book_date, start_time, end_time,agenda)=>{
+    console.log("booking data:",{user_id,admin_id ,room_id,room_name,email,book_date, start_time, end_time,agenda});
     const response= await axiosClient.post("/booking/",{
         user_id,
+        admin_id,
         room_id,
         room_name,
         email,

@@ -1,5 +1,6 @@
 import authApi from "../apis/auth.api.js";
 import { createContext, useState, useEffect } from "react";
+import {socket} from "./socket.js";
 const signup = async (userInfo) => {
   const username = userInfo.username;
   const email = userInfo.email;
@@ -44,6 +45,7 @@ const login = async (userInfo, rememberMe) => {
   };
   try {
     const data = await authApi.login(email, password, rememberMe);
+    if (!socket.connected) socket.connect();
     response.data = data;
   } catch (Err) {
     response.success = false;
@@ -70,6 +72,7 @@ const login = async (userInfo, rememberMe) => {
 const logout = async () => {
   try {
     const data = await authApi.logout();
+    if (socket.connected) socket.disconnect();
   } catch (Err) {
     console.error(Err);
   }
@@ -132,4 +135,11 @@ const resetPassword = async (email, newPassword) => {
   }
   return response;
 };
-export default { signup, login, logout, sendVerifyEmail, getEmailByToken,resetPassword };
+export default {
+  signup,
+  login,
+  logout,
+  sendVerifyEmail,
+  getEmailByToken,
+  resetPassword,
+};

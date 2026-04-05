@@ -84,4 +84,10 @@ const groupByDate = (notifications) => {
 const countUnread = (notifications) => {
   return notifications.filter(n => !n.is_read).length;
 };
-export default { formatDate, getPageName, formatDateTime, updateStatistics, groupByDate, countUnread };
+const updateStatusById = (data, id, newStatus) => {
+  console.log(data, id, newStatus);
+  return data.map(item => 
+    item.id === Number(id) ? { ...item, status: newStatus } : item
+  );
+};
+export default { formatDate, getPageName, formatDateTime, updateStatistics, groupByDate, countUnread, updateStatusById };

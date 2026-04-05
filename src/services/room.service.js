@@ -11,14 +11,14 @@ const getAllRooms = async (query) => {
     page = 1,
     limit = 9,
   } = query;
-  console.log("b:",query);
+ 
   
   const response = {
     success: true,
     listErr: [],
   };
   try {
-    console.log("a:",query);
+    
     const data = await roomApi.getAllRooms({
       keyword,
       capacity,
@@ -29,6 +29,7 @@ const getAllRooms = async (query) => {
       page,
       limit,
     });
+    
     return data;
   } catch (error) {
     response.success = false;

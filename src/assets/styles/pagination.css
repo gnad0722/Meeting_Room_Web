@@ -1,16 +1,55 @@
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 20px;
+  align-items: center;
+  gap: 6px;
+  margin-top: 30px;
+  font-family: 'Inter', sans-serif; /* Hoặc font hệ thống */
 }
 
 .pagination button {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px; /* Bo góc hiện đại */
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
+/* Hiệu ứng khi di chuột qua nút */
+.pagination button:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+  color: #007bff;
+}
+
+/* Nút ở trang hiện tại */
+.pagination button.active {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}
+
+/* Trạng thái bị vô hiệu hóa (nút Prev/Next) */
 .pagination button:disabled {
-  opacity: 0.5;
+  background-color: #f5f5f5;
+  color: #ccc;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+/* Đặc biệt cho nút Prev và Next để chúng dài hơn một chút */
+.pagination button:first-child,
+.pagination button:last-child {
+  padding: 0 16px;
+  font-weight: 600;
 }

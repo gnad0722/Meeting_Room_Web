@@ -10,13 +10,12 @@ function StatusPopup(props) {
   const status = props.status;
   async function handleAccept() {
     try {
-      const success = await bookingService.acceptBooking(id);
+      const success = await bookingService.acceptBooking(id,user_id);
       if (success) {
         await notiService.createNoti(
           user_id,
           `Your booking for ${message.name} on ${message.date} from ${message.startTime} to ${message.endTime} has been confirmed by the admin.`,
         );
-        window.location.reload();
       }
     } catch (Err) {
       console.error(Err);
@@ -24,13 +23,12 @@ function StatusPopup(props) {
   }
   async function handleCancel() {
     try {
-      const success = await bookingService.cancelBooking(id);
+      const success = await bookingService.cancelBooking(id,user_id);
       if (success) {
          await notiService.createNoti(
           user_id,
           `Your booking for ${message.name} on ${message.date} from ${message.startTime} to ${message.endTime} has been cancelled by the admin.`,
         );
-        window.location.reload();
       }
     } catch (Err) {
       console.error(Err);

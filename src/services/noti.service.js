@@ -2,7 +2,7 @@ import { TbWashDryP } from "react-icons/tb";
 import notiApi from "../apis/noti.api.js";
 
 const createNoti = async (user_id,content)=>{
-    
+    console.log(user_id,content,"log in service");
     try{
         await notiApi.createNoti(user_id,content);
     }

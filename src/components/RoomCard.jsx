@@ -34,23 +34,26 @@ function RoomCard(props) {
   const navigate = useNavigate();
   const bookingData = props.bookingData;
   const id = props.id;
+  const adminId=props.admin_id
   function handleChosenRoom(id) {
-    if (bookingData.room_id === id) {
+    if (bookingData.room_id && bookingData.room_id === id) {
       props.handleDataBooking({
         ...props.bookingData,
         room_id: null,
-        room_name: ""
+        room_name: "",
+        admin_id:adminId
       });
     } else {
       props.handleDataBooking({
         ...props.bookingData,
         room_id: id,
-        room_name: props.room_name || "Room Name" // Assuming you have room_name in your props
+        room_name: props.room_name || "Room Name",
+        admin_id:adminId
       });
     }
   }
   return (
-    <div className="card">
+    <div className={"card " + (bookingData.room_id === id ? "card-chosen" : "")}>
       <img src={props.image} alt="Meeting Room" />
       <span id="roomName">
         {props.name && props.name.length > 16

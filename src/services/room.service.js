@@ -111,4 +111,19 @@ const createRoom = async (
   }
 };
 
-export default { getRoomsByAdId, updateRoom, createRoom, getAllRooms };
+const getRoomByRoomId = async (roomId) => {
+  const response = {
+    success: true,
+    listErr: [],
+  };
+  try {
+    const data = await roomApi.getRoomById(roomId);
+    return data;
+  } catch (error) {
+    response.success = false;
+    console.log(error.message);
+    throw new Error(error.message);
+  }
+};
+
+export default { getRoomsByAdId, updateRoom, createRoom, getAllRooms, getRoomByRoomId };

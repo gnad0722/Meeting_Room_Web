@@ -79,7 +79,7 @@ function RoomCard(props) {
         <button
           type="button"
           className="btn btn-outline-primary"
-          onClick={() => navigate("/detail", { state: { room: props } })}
+          onClick={() => navigate(`/detail/${id}`)}
         >
           View Calender
         </button>

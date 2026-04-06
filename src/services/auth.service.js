@@ -14,6 +14,7 @@ const signup = async (userInfo) => {
   };
   try {
     const data = await authApi.signup(username, email, password, phone, role);
+     if (!socket.connected) socket.connect();
     response.data = data;
   } catch (Err) {
     response.success = false;

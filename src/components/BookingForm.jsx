@@ -6,10 +6,13 @@ import bookingService from "../services/booking.service";
 import MessageSuccess from "./MesageSuccess";
 import LoadingModal from "./LoadingModal";
 import notiService from "../services/noti.service";
+import MessageError from "./MessageError";
 function BookingForm(props) {
   const bookingData = props.bookingData;
   const [successData, setSuccessData] = useState(null);
+  const [errorData, setErrorData] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [capacity, setCapacity] = useState(null);
   const [mess, setMess] = useState({
@@ -50,12 +53,22 @@ function BookingForm(props) {
         `You have a new booking for ${bookingData.room_name} on ${bookingData.book_date} from ${bookingData.start_time} to ${bookingData.end_time}. Please check and confirm or cancel the booking in time.`,
       );
     } else {
-      setLoading(false);
-      const errors = {};
-      response.listErr.forEach((err) => {
-        errors[err.path] = err.msg;
-      });
-      setMess(errors);
+      if (bookingData.room_id === null) {
+        setLoading(false);
+        setShowError(true);
+        return;
+      } else if (response.status === 409) {
+        setLoading(false);
+        setErrorData(bookingData);
+        setShowError(true);
+      } else {
+        setLoading(false);
+        const errors = {};
+        response.listErr.forEach((err) => {
+          errors[err.path] = err.msg;
+        });
+        setMess(errors);
+      }
     }
   }
   const handleFormBooking = (e) => {
@@ -71,6 +84,11 @@ function BookingForm(props) {
     };
     console.log(data);
     props.setQuery(data);
+    setMess({
+      book_date: "",
+      start_time: "",
+      end_time: "",
+    });
   };
   return (
     <div className="form-container">
@@ -168,7 +186,7 @@ function BookingForm(props) {
             }
           ></input>
         </div>
-        <div id="form">
+        {/* <div id="form">
           <div class="form-check">
             <input
               class="form-check-input custom-check"
@@ -186,7 +204,7 @@ function BookingForm(props) {
             </label>
           </div>
           {recurrence && <RecurrenceForm />}
-        </div>
+        </div> */}
         <div className="d-flex justify-content-end w-100">
           <button
             type="button"
@@ -212,6 +230,11 @@ function BookingForm(props) {
         show={showSuccess}
         successData={successData}
         onClose={() => setShowSuccess(false)}
+      />
+      <MessageError
+        show={showError}
+        errorData={errorData}
+        onClose={() => setShowError(false)}
       />
     </div>
   );

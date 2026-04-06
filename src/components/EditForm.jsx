@@ -2,22 +2,28 @@ import React, { useState, useEffect } from "react";
 import Amenities from "./Amenities";
 import roomService from "../services/room.service.js";
 
-function EditForm({ room, onClose,onUpdate }) {
+function EditForm({ room, onClose, onUpdate }) {
   const [formData, setFormData] = useState({
     name: room?.roomname || "",
     location: room?.roomlocation || "",
     capacity: room?.roomcapacity || "",
-    amenities: room?.roomamenities || ["Wifi"],
+    amenities: room?.roomamenities || [],
     formFile: room?.roomimage || "",
   });
-
+  const [mess, setMess] = useState({
+    name: "",
+    location: "",
+    capacity: "",
+    amenities: "",
+    image: "",
+  });
   useEffect(() => {
     if (room) {
       setFormData({
         name: room.roomname || "",
         location: room.roomlocation || "",
         capacity: room.roomcapacity || "",
-        amenities: room.roomamenities || ["Wifi"],
+        amenities: room.roomamenities || [],
         formFile: room.roomimage || "",
       });
     }
@@ -34,32 +40,48 @@ function EditForm({ room, onClose,onUpdate }) {
   const handleSubmit = async () => {
     const { name, location, capacity, amenities, formFile } = formData;
 
-    try {
-      const data = await roomService.updateRoom(room.id, name, location, capacity, amenities, formFile);
+    const response = await roomService.updateRoom(
+      room.id,
+      name,
+      location,
+      capacity,
+      amenities,
+      formFile,
+    );
+    if (response.success) {
       onClose();
       onUpdate();
-    } catch (error) {
-      console.error("Error updating room:", error.message);
+    } else {
+      const errors = {};
+      response.listErr.forEach((err) => {
+        errors[err.path] = err.msg;
+      });
+      setMess(errors);
     }
   };
 
   return (
-    <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+    <div
+      className="modal fade show d-block"
+      tabIndex="-1"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+    >
       <div className="modal-dialog" style={{ maxWidth: "700px" }}>
         <div className="modal-content">
           <div className="modal-body">
             <div className="edit-form">
               <h4 className="text-center">Edit Meeting Room</h4>
               <div className="row g-3">
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <label className="form-label">Name</label>
-                  <input type="text" className="form-control" id="name"
-                    value={formData.name} onChange={handleChange} />
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Location</label>
-                  <input type="text" className="form-control" id="location"
-                    value={formData.location} onChange={handleChange} />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                  <span className="text-danger">{mess.name}</span>
                 </div>
 
                 <Amenities
@@ -70,21 +92,41 @@ function EditForm({ room, onClose,onUpdate }) {
                 />
                 <div className="col-md-4">
                   <label className="form-label">Seat Capacity</label>
-                  <input type="text" className="form-control" id="capacity"
-                    value={formData.capacity} onChange={handleChange} />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="capacity"
+                    value={formData.capacity}
+                    onChange={handleChange}
+                  />
+                  <span className="text-danger">{mess.capacity}</span>
                 </div>
 
                 <div className="col-md-12">
                   <label className="form-label">Upload file</label>
-                  <input className="form-control" type="file" id="formFile" onChange={handleChange} />
+                  <input
+                    className="form-control"
+                    type="file"
+                    id="formFile"
+                    onChange={handleChange}
+                  />
+                  <span className="text-danger">{mess.image}</span>
                 </div>
               </div>
 
               <div className="d-flex justify-content-center gap-3 mt-4">
-                <button type="button" className="btn btn-outline-secondary" onClick={onClose}>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  onClick={onClose}
+                >
                   Cancel
                 </button>
-                <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleSubmit}
+                >
                   Save Changes
                 </button>
               </div>

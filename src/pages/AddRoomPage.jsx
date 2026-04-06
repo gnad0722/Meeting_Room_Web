@@ -14,10 +14,16 @@ function AddRoomPage() {
     name: "",
     location: "",
     capacity: "",
-    amenities: ["Wifi"],
+    amenities: [],
     imgFile: "",
   });
-
+  const [mess, setMess] = useState({
+    name: "",
+    location: "",
+    capacity: "",
+    amenities: "",
+    image: "",
+  });
   const handleAmenitiesChange = useCallback((data) => {
     setFormData((prev) => ({ ...prev, amenities: data }));
   }, []);
@@ -34,11 +40,22 @@ function AddRoomPage() {
     e.preventDefault();
     console.log("Submit data:", formData);
     const { name, location, capacity, amenities, imgFile } = formData;
-    try {
-      const response = await roomService.createRoom(name, location, capacity, user.id, amenities, imgFile);
-      console.log("Room created:", response);
-    } catch (error) {
-      console.log("Error submitting form:", error.message);
+    const response = await roomService.createRoom(
+      name,
+      location,
+      capacity,
+      user.id,
+      amenities,
+      imgFile,
+    );
+    if (response.success) {
+      navigate("/admin/room");
+    } else {
+      const errors = {};
+      response.listErr.forEach((err) => {
+        errors[err.path] = err.msg;
+      });
+      setMess(errors);
     }
   };
   if (loading) return <div>Loading...</div>;
@@ -62,6 +79,7 @@ function AddRoomPage() {
               value={formData.name}
               onChange={handleChange}
             />
+             <span id="error-msg">{mess.name}</span>
           </div>
 
           <div className="col-md-4">
@@ -75,6 +93,7 @@ function AddRoomPage() {
               value={formData.location}
               onChange={handleChange}
             />
+             <span id="error-msg">{mess.location}</span>
           </div>
 
           <div className="col-md-4">
@@ -88,6 +107,7 @@ function AddRoomPage() {
               value={formData.capacity}
               onChange={handleChange}
             />
+             <span id="error-msg">{mess.capacity}</span>
           </div>
 
           <Amenities
@@ -105,6 +125,7 @@ function AddRoomPage() {
               id="imgFile"
               onChange={handleChange}
             />
+             <span id="error-msg">{mess.image}</span>
           </div>
 
           <div className="col-12">

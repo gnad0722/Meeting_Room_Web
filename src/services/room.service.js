@@ -64,8 +64,15 @@ const updateRoom = async (
   const response = {
     success: true,
     listErr: [],
+    data: null,
   };
   try {
+    console.log("Updating room with data:", {
+      roomId,
+      name,
+      location,
+      capacity,
+    });
     const roomData = await roomApi.updateRoom(
       roomId,
       name,
@@ -74,12 +81,20 @@ const updateRoom = async (
       amenities,
       image,
     );
-    return roomData;
-  } catch (error) {
+    response.data = roomData;
+  } catch (Err) {
     response.success = false;
-    console.log(error.message);
-    throw new Error(error.message);
+    if (Err.response.status === 400) {
+      const errors = Err.response.data.errors;
+      errors.forEach((err) => {
+        response.listErr.push({
+          path: err.path,
+          msg: err.msg,
+        });
+      });
+    } else console.error(Err);
   }
+  return response;
 };
 
 const createRoom = async (
@@ -93,6 +108,7 @@ const createRoom = async (
   const response = {
     success: true,
     listErr: [],
+    data: null,
   };
   try {
     const data = await roomApi.addRoom(
@@ -103,12 +119,20 @@ const createRoom = async (
       amenities,
       image,
     );
-    return data;
-  } catch (error) {
+    response.data = data;
+  } catch (Err) {
     response.success = false;
-    console.log(error.message);
-    throw new Error(error.message);
+    if (Err.response.status === 400) {
+      const errors = Err.response.data.errors;
+      errors.forEach((err) => {
+        response.listErr.push({
+          path: err.path,
+          msg: err.msg,
+        });
+      });
+    } else console.error(Err);
   }
+  return response;
 };
 
 const getRoomByRoomId = async (roomId) => {

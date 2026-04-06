@@ -229,7 +229,7 @@ function BookingForm(props) {
       <MessageSuccess
         show={showSuccess}
         successData={successData}
-        onClose={() => setShowSuccess(false)}
+        onClose={() => navigate("/home")}
       />
       <MessageError
         show={showError}

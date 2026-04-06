@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useNavigate } from "react";
 import bookingService from "../services/booking.service";
 import MessageSuccess from "./MesageSuccess";
 import LoadingModal from "./LoadingModal";
@@ -6,6 +6,7 @@ import notiService from "../services/noti.service";
 import MessageError from "./MessageError";
 import { AuthContext } from "../context/AuthContext.js";
 function BookingPopup(props) {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [successData, setSuccessData] = useState(null);
   const [errorData, setErrorData] = useState(null);
@@ -163,7 +164,7 @@ function BookingPopup(props) {
       <MessageSuccess
         show={showSuccess}
         successData={successData}
-        onClose={() => setShowSuccess(false)}
+        onClose={() => navigate("/home")}
       />
       <MessageError
         show={showError}

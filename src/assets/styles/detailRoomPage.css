@@ -180,7 +180,6 @@
   justify-content: flex-start;
   padding: 15px 5px 15px 30px;
   height: 20px;
-  cursor: pointer;
 }
 #half {
   border-bottom: 1px solid #bfc6c4;
@@ -195,7 +194,7 @@
   position: absolute;
   border: 2px solid #09A5D7;
   width: 800px;
-  height: 1600px;
+  height: 1540px;
   left: 100px;
   top: -60px;
   pointer-events: none;

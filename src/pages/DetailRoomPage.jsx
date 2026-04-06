@@ -5,6 +5,7 @@ import RoomCardDetail from "../components/RoomCardDetail";
 import ScheduleDetail from "../components/ScheduleDetail";
 import { AuthContext } from "../context/AuthContext";
 import { useParams } from "react-router-dom";
+import BookingPopup from "../components/BookingPopup.jsx";
 import roomService from "../services/room.service.js";
 
 function DetailRoomPage() {
@@ -39,6 +40,7 @@ function DetailRoomPage() {
     <div className="detail-page">
       <Header />
       <div className="body-detail-page">
+        <BookingPopup room={room} />
         <RoomCardDetail selectedDate={selectedDate} onSelect={handleSelect} room={room} />
         <ScheduleDetail selectedDate={selectedDate} schedule={room?.schedule} />
       </div>

@@ -1,129 +1,142 @@
-import React, { useState } from "react";
-import Amenty from "./Amenty";
-import RecurrenceForm from "./RecurrenceForm";
-function BookingPopup() {
-  const [listAmenties, setList] = useState([
-    "Video",
-    "Audio",
-    "Whiteboard",
-    "HDMI",
-    "Projector",
-    "Speaker Phone",
-  ]);
-  const [listChosen, setChosen] = useState([]);
-  const [recurrence, setRecurrence] = useState(false);
-  function handelChosen(amenty) {
-    setChosen((prev) => {
-      if (prev.includes(amenty)) {
-        return prev.filter((item) => item !== amenty);
+import React, { useState, useContext, useEffect } from "react";
+import bookingService from "../services/booking.service";
+import MessageSuccess from "./MesageSuccess";
+import LoadingModal from "./LoadingModal";
+import notiService from "../services/noti.service";
+import MessageError from "./MessageError";
+import { AuthContext } from "../context/AuthContext.js";
+function BookingPopup(props) {
+  const { user } = useContext(AuthContext);
+  const [successData, setSuccessData] = useState(null);
+  const [errorData, setErrorData] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const room = props.room;
+  const [bookingData, setBooking] = useState({
+    user_id: user.id,
+    admin_id: room.admin_id,
+    email: user.email,
+    room_name: room.name,
+    room_id: room.id,
+    book_date: "",
+    start_time: "",
+    end_time: "",
+    agenda: "",
+  });
+  const [mess, setMess] = useState({
+    book_date: "",
+    start_time: "",
+    end_time: "",
+  });
+  async function handleBooking(e) {
+    e.preventDefault();
+    setLoading(true);
+    const response = await bookingService.postBooking(bookingData);
+    if (response.success) {
+      setLoading(false);
+      setSuccessData(bookingData);
+      setShowSuccess(true);
+      await notiService.createNoti(
+        bookingData.admin_id,
+        `You have a new booking for ${bookingData.room_name} on ${bookingData.book_date} from ${bookingData.start_time} to ${bookingData.end_time}. Please check and confirm or cancel the booking in time.`,
+      );
+    } else {
+      if (bookingData.room_id === null) {
+        setLoading(false);
+        setShowError(true);
+        return;
+      } else if (response.status === 409) {
+        setLoading(false);
+        setErrorData(bookingData);
+        setShowError(true);
       } else {
-        return [...prev, amenty];
+        setLoading(false);
+        const errors = {};
+        response.listErr.forEach((err) => {
+          errors[err.path] = err.msg;
+        });
+        setMess(errors);
       }
-    });
+    }
   }
   return (
-        <div className="modal fade" id="bookingPop" tabIndex="-1" aria-hidden="true">
-        <div className="modal-dialog" style={{ maxWidth: "600px" }}>
+    <div
+      className="modal fade"
+      id="bookingPop"
+      tabIndex="-1"
+      aria-hidden="true"
+    >
+      <div className="modal-dialog" style={{ maxWidth: "600px" }}>
         <div className="modal-content">
           <div className="modal-body">
             <div className="form-popup">
               <div className="booking-popup">
                 <div id="form">
-                  <span>Location</span>
-                  <select
-                    className="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option selected>Choose your location</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-                <div id="form">
                   <span>Date</span>
                   <input
                     type="date"
-                    className="form-control"
+                    class="form-control"
                     id="birthday"
                     name="birthday"
+                    onChange={(e) =>
+                      setBooking({
+                        ...bookingData,
+                        book_date: e.target.value,
+                      })
+                    }
                   />
+                  <span id="error-msg">{mess.book_date}</span>
                 </div>
                 <div className="d-flex w-100 justify-content-between">
-                  <div id="form" classNameName="col-5">
+                  <div id="form" className="col-5">
                     <span>Start Time</span>
+
                     <input
                       type="time"
-                      className="form-control"
+                      class="form-control"
                       id="appt-time"
                       name="appt-time"
-                      onChange={() => console.log("react")}
-                      onInput={() => console.log("native")}
+                      onChange={(e) =>
+                        setBooking({
+                          ...bookingData,
+                          start_time: e.target.value,
+                        })
+                      }
                     />
+                    <span id="error-msg">{mess.start_time}</span>
                   </div>
                   <div id="form" className="col-5">
                     <span>End Time</span>
                     <input
                       type="time"
-                      className="form-control"
+                      class="form-control"
                       id="appt-time"
                       name="appt-time"
+                      onChange={(e) =>
+                        setBooking({
+                          ...bookingData,
+                          end_time: e.target.value,
+                        })
+                      }
                     />
-                  </div>
-                </div>
-                <div id="form">
-                  <span>Number Seats</span>
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="numberSeats"
-                    placeholder="Enter number seates"
-                  ></input>
-                </div>
-                <div id="form">
-                  <span>Amenities</span>
-                  <div className="d-flex flex-wrap justify-content-start gap-4">
-                    {listAmenties.map((amenty, index) => {
-                      return (
-                        <Amenty
-                          name={amenty}
-                          key={index}
-                          chosen={listChosen.includes(amenty)}
-                          onChosen={handelChosen}
-                        />
-                      );
-                    })}
+                    <span id="error-msg">{mess.end_time}</span>
                   </div>
                 </div>
                 <div id="form">
                   <span>Purpose of the booking</span>
                   <input
                     type="text"
-                    className="form-control"
+                    class="form-control"
                     id="bookingPurpose"
                     placeholder="Enter the purpose of the booking (Optional)"
+                    onChange={(e) =>
+                      setBooking({
+                        ...bookingData,
+                        agenda: e.target.value,
+                      })
+                    }
                   ></input>
-                </div>
-                <div id="form">
-                  <div className="form-check">
-                    <input
-                      className="form-check-input custom-check"
-                      type="checkbox"
-                      value=""
-                      id="checkDefault"
-                      onChange={(e) => {
-                        setRecurrence(e.target.checked);
-                      }}
-                    />
-                    <label
-                      id="titleRecurrence"
-                      className="form-check-label"
-                      for="checkRecurrence"
-                    >
-                      Make Recurring
-                    </label>
-                  </div>
-                  {recurrence && <RecurrenceForm />}
                 </div>
               </div>
             </div>
@@ -138,7 +151,7 @@ function BookingPopup() {
               <button
                 type="button"
                 className="btn btn-primary"
-                data-bs-dismiss="modal"
+                onClick={handleBooking}
               >
                 Book
               </button>
@@ -146,6 +159,17 @@ function BookingPopup() {
           </div>
         </div>
       </div>
+      <LoadingModal show={loading} />
+      <MessageSuccess
+        show={showSuccess}
+        successData={successData}
+        onClose={() => setShowSuccess(false)}
+      />
+      <MessageError
+        show={showError}
+        errorData={errorData}
+        onClose={() => setShowError(false)}
+      />
     </div>
   );
 }

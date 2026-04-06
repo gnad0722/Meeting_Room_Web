@@ -5,6 +5,7 @@ const postBooking = async (bookingData) => {
     bookingData;
   const response = {
     success: true,
+    status: 200,
     listErr: [],
   };
   try {
@@ -22,6 +23,7 @@ const postBooking = async (bookingData) => {
     return response;
   } catch (Err) {
     response.success = false;
+    response.status = Err.response.status;
     if (Err.response.status === 400) {
       const errors = Err.response.data.errors;
       errors.forEach((err) => {

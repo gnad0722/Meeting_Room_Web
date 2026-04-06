@@ -25,7 +25,7 @@ function Amenities({ onChange, selected: initialSelected = ["Audio"] }) {
     <div className="col-md-8">
       <label className="form-label">Amenities</label>
 
-      <div className="form-control d-flex flex-wrap gap-2 p-2">
+      <div className="d-flex flex-wrap gap-2 p-2">
         {selected.map((item, index) => (
           <span key={index} className="badge bg-light text-dark border d-flex align-items-center">
             {item}

@@ -78,7 +78,7 @@ function Header(props) {
                 style={{ cursor: "pointer" }}
                 onClick={() => setOpen((prev) => !prev)}
               />
-              {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+              {unreadCount > 0 && <span className="badge-notification">{unreadCount}</span>}
               <NotificationPopup
                 open={open}
                 onClose={() => setOpen(false)}

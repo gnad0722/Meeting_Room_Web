@@ -14,7 +14,6 @@ function DetailRoomPage() {
 
   const { user, loading } = useContext(AuthContext);
   const { id } = useParams();
-  console.log(id);
   
   function handleSelect(selected) {
     setSelected(selected);
@@ -25,7 +24,6 @@ function DetailRoomPage() {
       try {
         setRoomLoading(true);
         const data = await roomService.getRoomByRoomId(id);
-        console.log(data.data[0]);
         setRoom(data.data[0]);
       } catch (error) {
         console.error(error.message);
@@ -35,7 +33,6 @@ function DetailRoomPage() {
     };
     fetchData();
   }, [id]);
-
   if (loading || roomLoading) return <div>Loading....</div>;
 
   return (
@@ -43,7 +40,7 @@ function DetailRoomPage() {
       <Header />
       <div className="body-detail-page">
         <RoomCardDetail selectedDate={selectedDate} onSelect={handleSelect} room={room} />
-        <ScheduleDetail selectedDate={selectedDate} />
+        <ScheduleDetail selectedDate={selectedDate} schedule={room?.schedule} />
       </div>
     </div>
   );

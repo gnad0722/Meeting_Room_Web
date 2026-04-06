@@ -29,7 +29,6 @@ const renderAmenityIcons = (amenities = []) => {
 };
 
 function RoomCardDetail(props) {
-  console.log("props:",props.room.amenities);
   if (!props.room) return <div>Loading...</div>;
   return (
     <div className="card-room">

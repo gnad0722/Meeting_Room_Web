@@ -3,11 +3,24 @@ import ScheduleItem from "./ScheduleItem";
 import MeetingRequest from "./MeetingRequest";
 import BookingPopup from "./BookingPopup";
 function Schedule(props) {
+  const selectedDate = props.selectedDate;
+  const schedule = props.schedule;
+  
   const componentRef = useRef(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const isSlotAvailable = (slotTime) => {
+    if (!schedule || !selectedDate) return true;
+    return !schedule.some(
+      (booking) =>
+        booking.date === selectedDate &&
+        slotTime >= booking.start_time &&
+        slotTime < booking.end_time
+    );
+  };
+
   const hours = Array.from({ length: 48 }, (_, i) => ({
     time: i * 0.5,
-    available: true,
+    available: isSlotAvailable(i * 0.5),
   }));
   const [popup, setPopup] = useState({
     show: false,

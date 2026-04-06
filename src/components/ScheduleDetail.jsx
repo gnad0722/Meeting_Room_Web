@@ -2,7 +2,11 @@ import React from "react";
 import utils from "../utils/utils.js";
 import Schedule from "./Schedule.jsx";
 function ScheduleDetail(props) {
-  const selectedDate = props.selectedDate;
+  const formatDate = (date) => {
+    return date.toLocaleDateString("en-CA");
+  };
+  const selectedDate = formatDate(props.selectedDate);
+  const schedule = props.schedule;
   return (
     <div className="schedule-container">
       <span id="titleDate">
@@ -11,7 +15,7 @@ function ScheduleDetail(props) {
           Schedule
         </button>
       </span>
-      <Schedule />
+      <Schedule schedule={schedule} selectedDate={selectedDate} />
     </div>
   );
 }

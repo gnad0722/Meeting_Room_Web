@@ -17,8 +17,8 @@ function Schedule(props) {
   };
 
   const hours = Array.from({ length: 48 }, (_, i) => ({
-    time: i * 0.5,
-    available: isSlotAvailable(i * 0.5),
+    time: Math.ceil(i) * 0.5,
+    available: isSlotAvailable(Math.ceil(i) * 0.5),
   }));
  
   return (

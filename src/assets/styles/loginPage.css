@@ -1,0 +1,86 @@
+.login-page {
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+}
+.banner {
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  width: 50%;
+}
+.banner img {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  object-fit: cover;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+.login-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.login-title {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+.login-title .main {
+  font-size: 30px;
+}
+.login-input {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.login-input span {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+.login-input span .forgot-pass{
+    font-size: 12px;
+    opacity: 0.8;
+    color: #0b5ed7;
+    cursor: pointer;
+}
+.login-btn{
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(0, 0, 0,0.5);
+}
+.title-signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    gap: 10px;
+}
+.title-signup span{
+    color: #0b5ed7;
+    cursor: pointer;
+}
+#error-msg{
+  color: red;
+  font-weight: 500;
+}
+.verify-noti{
+  font-size: 20px;
+  opacity: 0.8;
+}

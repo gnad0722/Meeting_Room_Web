@@ -1,0 +1,61 @@
+.heros-page {
+  display: flex;
+  flex-direction: column;
+  background-color: #F9F9F9;
+  height: 100vh;
+}
+.heros-container{
+    display: flex;
+    height: 100%;
+    padding: 0px 200px;
+}
+.heros-banner{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    justify-self: flex-end;
+}
+.banner-item{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px 30px 10px 10px;
+}
+.banner-item > img{
+    object-fit: cover;
+    overflow: hidden;
+    width: 270px;
+    height: 270px;
+    border-radius: 0.8rem;
+}
+#banner_1{
+    justify-content: flex-start;
+}
+#banner_2{
+    justify-content: flex-end;
+}
+.heros-content{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: start;
+    justify-content: center;
+}
+
+#slogan{
+    font-size: 30px;
+    font-weight: 600;
+    opacity: 0.8;
+}
+#bigTitle{
+    font-size: 60px;
+    font-weight: bold;
+    color: #17af87;
+}
+#bannerTitle{
+    font-size: 17px;
+    margin-top: 40px;
+    width: 450px;
+    margin-bottom: 30px;
+}
